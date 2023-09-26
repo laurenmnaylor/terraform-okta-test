@@ -84,10 +84,18 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      env:
+        TF_VAR_org_name: ${{ variables.TF_VAR_org_name }}
+        TF_VAR_base_url: ${{ variables.TF_VAR_base_url }}
+        TF_VAR_api_token: ${{ secrets TF_VAR_api_token }}
       run: terraform plan -input=false
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
+      env:
+        TF_VAR_org_name: ${{ variables.TF_VAR_org_name }}
+        TF_VAR_base_url: ${{ variables.TF_VAR_base_url }}
+        TF_VAR_api_token: ${{ secrets TF_VAR_api_token }}
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
