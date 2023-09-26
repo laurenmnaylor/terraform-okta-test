@@ -80,6 +80,10 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
+      env:
+        TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
+        TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
+        TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
       run: terraform fmt -check
 
     # Generates an execution plan for Terraform
