@@ -1,0 +1,1 @@
+login_redirect_uri  = ["https://test1.com"]
