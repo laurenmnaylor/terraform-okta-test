@@ -1,3 +1,15 @@
+ terraform {
+       backend "remote" {
+         # The name of your Terraform Cloud organization.
+         organization = "terraform-okta-test"
+
+         # The name of the Terraform Cloud workspace to store Terraform state files in.
+         workspaces {
+           name = "test-workspace"
+         }
+       }
+     }
+
 resource "okta_app_oauth" "test_app" {
   label                      = "Terraform Test SPA"
   type                       = "browser"
