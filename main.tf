@@ -21,6 +21,14 @@ resource "okta_app_oauth" "test_app" {
   post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
 }
 
+resource "okta_auth_server" "example" {
+  audiences   = ["api://example"]
+  description = "My Example Auth Server"
+  name        = "example"
+  issuer_mode = "CUSTOM_URL"
+  status      = "ACTIVE"
+}
+
 
 module "test-spa-app" {
   source = "./test-spa-app"
