@@ -21,16 +21,6 @@ resource "okta_app_oauth" "test_app" {
   post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
 }
 
-resource "okta_app_oauth" "test_app-2" {
-  label                      = "Terraform Test SPA Number 2"
-  type                       = "browser"
-  grant_types                = ["authorization_code"]
-  redirect_uris              = ["https://example.com/login/authorization_code/callback"]
-  consent_method             = "REQUIRED"
-  token_endpoint_auth_method = "none"
-  response_types             = ["code"]
-  post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
-}
 
 module "test-spa-app" {
   source = "./test-spa-app"
