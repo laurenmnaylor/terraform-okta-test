@@ -49,6 +49,9 @@ defaults:
 
 on:
   workflow_dispatch:
+    inputs:
+      name:
+        required: true
 
 permissions:
   contents: read
