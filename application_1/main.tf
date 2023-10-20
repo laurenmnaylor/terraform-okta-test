@@ -17,6 +17,6 @@ data "okta_auth_server" "as" {
 resource "okta_auth_server_scope" "example_scope_1" {
   auth_server_id   = data.okta_auth_server.as.id
   metadata_publish = "NO_CLIENTS"
-  name             = "exampleScope1"
+  name             = "exampleScopeOne"
   consent          = "IMPLICIT"
 }  
