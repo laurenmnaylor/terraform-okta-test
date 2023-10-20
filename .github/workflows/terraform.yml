@@ -43,9 +43,6 @@
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
 name: 'Terraform'
-defaults:
-  run:
-    working-directory: ${{ github.event.inputs.name }}
 
 on:
   workflow_dispatch:
@@ -67,6 +64,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: ${{ github.event.inputs.name }}
 
     steps:
     # Checkout the repository to the GitHub Actions runner
