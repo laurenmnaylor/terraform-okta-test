@@ -14,4 +14,6 @@ module "client_module" {
   org_name = var.org_name
   api_token = var.api_token
   base_url = var.base_url
+  env = var.env
+  envs_to_deploy = ['dev']
 }
