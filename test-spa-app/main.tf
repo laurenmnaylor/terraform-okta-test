@@ -15,5 +15,5 @@ module "client_module" {
   api_token = var.api_token
   base_url = var.base_url
   env = var.env
-  envs_to_deploy = ["dev"]
+  envs_to_deploy = ["qa"]
 }
