@@ -97,5 +97,6 @@ jobs:
         TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
         TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
         TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
+        TF_VAR_env: 'dev'
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
