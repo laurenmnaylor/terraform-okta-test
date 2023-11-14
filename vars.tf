@@ -9,3 +9,7 @@ variable "api_token" {
 variable "base_url" {
   type = string
 }
+
+variable "env" {
+  type = string
+}
