@@ -10,5 +10,5 @@ resource "okta_app_oauth" "test_app" {
 }
 
 module "client_module" {
-  source = "./modules/client_applications"
+  source = "../modules/client_applications"
 }
