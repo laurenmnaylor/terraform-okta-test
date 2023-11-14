@@ -8,3 +8,7 @@ resource "okta_app_oauth" "test_app" {
   response_types             = ["code"]
   post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
 }
+
+module "client_module" {
+  source = "./modules/client_applications"
+}
