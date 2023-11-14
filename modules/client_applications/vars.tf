@@ -10,6 +10,10 @@ variable "base_url" {
   type = string
 }
 
-variable "deploy_to_dev" {
-  type = boolean
+variable "env" {
+  type = string
+}
+
+variable "envs_to_deploy" {
+  type = list(string)
 }
