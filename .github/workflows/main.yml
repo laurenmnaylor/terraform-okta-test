@@ -1,0 +1,41 @@
+name: 'Assign Reviewers'
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Determine Envs'
+    runs-on: ubuntu-latest
+    environment: Dev
+    
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.event.inputs.name }}
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      env:
+        TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
+        TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
+        TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
+        TF_VAR_env: 'prod'
+      run: terraform plan -input=false
