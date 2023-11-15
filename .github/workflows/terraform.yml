@@ -73,7 +73,7 @@ jobs:
 
     - name: Output File
       id: output
-      run: find terraform-okta-test/${{ github.event.inputs.name }} -type f -exec cat {} \; 
+      run: pwd 
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
