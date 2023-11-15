@@ -1,5 +1,5 @@
 resource "okta_app_oauth" "test_app" {
-  label                      = "Test SPA App 2"
+  label                      = "Test SPA App 3"
   type                       = "browser"
   grant_types                = ["authorization_code"]
   redirect_uris              = ["https://example.com"]
