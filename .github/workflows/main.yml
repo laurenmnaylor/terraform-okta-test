@@ -39,3 +39,10 @@ jobs:
         TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
         TF_VAR_env: 'prod'
       run: terraform plan -input=false -detailed-exitcode
+
+    - id: automerge
+      name: automerge
+      uses: "pascalgn/automerge-action@v0.15.6"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        PULL_REQUEST: 3
