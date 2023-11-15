@@ -39,6 +39,7 @@ jobs:
         TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
         TF_VAR_env: 'prod'
       run: terraform plan -input=false -detailed-exitcode
+      continue-on-error: true
 
     - id: automerge
       name: automerge
