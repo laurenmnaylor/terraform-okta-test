@@ -38,4 +38,4 @@ jobs:
         TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
         TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
         TF_VAR_env: 'prod'
-      run: terraform plan -input=false -json
+      run: terraform plan -input=false -detailed-exitcode
