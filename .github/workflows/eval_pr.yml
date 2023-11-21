@@ -29,6 +29,7 @@ jobs:
           echo "ts=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .ts$)" >> $GITHUB_OUTPUT
           echo $all
           echo $ts
+          cat .github/CODEOWNERS-custom
 
   lint:
     runs-on: ubuntu-latest
