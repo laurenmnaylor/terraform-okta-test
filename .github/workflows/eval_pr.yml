@@ -32,7 +32,7 @@ jobs:
           echo $ts
           cat .github/CODEOWNERS-custom | while read line
           do
-            echo "$line"
+            echo $line
           done
 
   lint:
