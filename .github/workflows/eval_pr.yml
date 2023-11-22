@@ -49,6 +49,6 @@ jobs:
           echo ${{needs.changedfiles.outputs.all}}
           for item in ${{needs.changedfiles.outputs.all}}; do
             echo "$item"
-            grep $item .github/CODEOWNERS-custom
+            grep "main" .github/CODEOWNERS-custom
           done
   
