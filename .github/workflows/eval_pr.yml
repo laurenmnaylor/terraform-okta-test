@@ -11,7 +11,6 @@ jobs:
     # Map a step output to a job output
     outputs:
       all: ${{ steps.changes.outputs.all}}
-      ts: ${{ steps.changes.outputs.ts }}
     steps:
         # Make sure we have some code to diff.
       - name: Checkout repository
@@ -27,16 +26,14 @@ jobs:
           git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
           #echo "all=$((git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}) | xargs)" >> $GITHUB_OUTPUT
           #echo "all=$(cat .github/CODEOWNERS-custom)" >> $GITHUB_OUTPUT
-          echo "ts=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .ts$)" >> $GITHUB_OUTPUT
           #echo $all
-          echo $ts
           expanded=""
           cat .github/CODEOWNERS-custom | while read line
           do
             expanded=$expanded$line
           done
           echo $expanded
-          echo "all=$expanded" >> $GITHUB_OUTPUT
+          echo "all=$($expanded)" >> $GITHUB_OUTPUT
 
   lint:
     runs-on: ubuntu-latest
