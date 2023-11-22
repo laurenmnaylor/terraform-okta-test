@@ -40,6 +40,8 @@ jobs:
     needs: changedfiles
     # only run there are changed files
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: echo changed files
         run: |
           pwd
