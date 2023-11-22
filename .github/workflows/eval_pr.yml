@@ -30,7 +30,7 @@ jobs:
           echo $all
           echo $ts
           cat .github/CODEOWNERS-custom
-          grep "main" .github/CODEOWNERS-custom
+          grep "spa" .github/CODEOWNERS-custom
 
   lint:
     runs-on: ubuntu-latest
