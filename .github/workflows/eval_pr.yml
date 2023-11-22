@@ -30,11 +30,13 @@ jobs:
           echo "ts=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .ts$)" >> $GITHUB_OUTPUT
           #echo $all
           echo $ts
-          all=""
+          expanded=""
           cat .github/CODEOWNERS-custom | while read line
           do
-            echo "all=$($all$line\n)" >> $GITHUB_OUTPUT
+            expanded=$expanded$line
           done
+          echo $expanded
+          echo "all=$expanded" >> $GITHUB_OUTPUT
 
   lint:
     runs-on: ubuntu-latest
