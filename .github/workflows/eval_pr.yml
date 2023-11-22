@@ -30,7 +30,7 @@ jobs:
           expanded=""
           cat .github/CODEOWNERS-custom | while read line
           do
-            expanded=$expanded$line
+            expanded+=$line
           done
           echo $expanded
           echo "all=$($expanded)" >> $GITHUB_OUTPUT
@@ -48,6 +48,5 @@ jobs:
           echo ${{needs.changedfiles.outputs.all}}
           for item in ${{needs.changedfiles.outputs.all}}; do
             echo "$item"
-            grep "main" .github/CODEOWNERS-custom
           done
   
