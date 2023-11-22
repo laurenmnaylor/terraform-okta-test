@@ -42,6 +42,8 @@ jobs:
     steps:
       - name: echo changed files
         run: |
+          pwd
+          ls
           echo ${{needs.changedfiles.outputs.all}}
           for item in ${{needs.changedfiles.outputs.all}}; do
             echo "$item"
