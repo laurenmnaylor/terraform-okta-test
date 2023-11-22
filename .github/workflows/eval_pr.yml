@@ -30,9 +30,7 @@ jobs:
           echo $all
           echo $ts
           cat .github/CODEOWNERS-custom
-          for item in $all; do
-            echo "$item"
-          done
+          grep "main" .github/CODEOWNERS-custom
 
   lint:
     runs-on: ubuntu-latest
