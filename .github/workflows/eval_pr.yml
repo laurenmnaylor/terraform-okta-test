@@ -24,7 +24,7 @@ jobs:
           echo "v=${{ github.event.pull_request.commits }}"
           echo $v
           git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
-          #echo "all=$((git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}) | xargs)" >> $GITHUB_OUTPUT
+          echo "all=$((git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}) | xargs)" >> $GITHUB_OUTPUT
           #echo "all=$(cat .github/CODEOWNERS-custom)" >> $GITHUB_OUTPUT
           #echo $all
           expanded=""
@@ -33,7 +33,10 @@ jobs:
             echo $line >> tmp.txt
           done
           cat tmp.txt
-          echo "all=$($expanded)" >> $GITHUB_OUTPUT
+          for item in $all; do
+            echo $item
+          done
+          rm tmp.txt
 
   lint:
     runs-on: ubuntu-latest
