@@ -30,9 +30,9 @@ jobs:
           expanded=""
           cat .github/CODEOWNERS-custom | while read line
           do
-            expanded="$expanded$line"
+            echo $line >> tmp.txt
           done
-          echo "$expanded"
+          cat tmp.txt
           echo "all=$($expanded)" >> $GITHUB_OUTPUT
 
   lint:
