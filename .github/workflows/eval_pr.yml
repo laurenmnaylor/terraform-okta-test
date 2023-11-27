@@ -21,10 +21,14 @@ jobs:
           fetch-depth: 0
       - name: Get changed files
         id: changes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Set outputs using the command.
         run: |
           echo "v=${{ github.event.pull_request.number }}"
           echo $v
+          echo "w=${{ github.event.pull_request_review.pull_request.number }}"
+          echo $w
           diffs=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           echo "all=$((git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}) | xargs)" >> $GITHUB_OUTPUT
           #echo "all=$(cat .github/CODEOWNERS-custom)" >> $GITHUB_OUTPUT
