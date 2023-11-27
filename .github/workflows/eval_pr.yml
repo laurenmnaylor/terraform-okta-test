@@ -43,8 +43,8 @@ jobs:
           rm tmp.txt
           reviews=$(gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/laurenmnaylor/terraform-okta-test/pulls/${{ github.event.pull_request.number }}/reviews)
           echo $reviews
-          echo $reviews -q '.[].user.login'
-          echo $reviews -q '.[].status'
+          echo $($reviews -q '.[].user.login')
+          echo $($reviews -q '.[].status')
           
   lint:
     runs-on: ubuntu-latest
