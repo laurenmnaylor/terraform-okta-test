@@ -51,7 +51,7 @@ jobs:
           echo "$reviews" | jq 'sort_by(.user.login, .submitted_at) | reverse | unique_by(.user.login) | map(select(.state=="APPROVED")) | .[].user.login' >> approvers.txt
          
           echo "RUNNING COMM"
-          comm -13 approvers.txt required_reviewers.txt
+          comm -13 <(sort -u approvers.txt) <(sort -u required_reviewers.txt)
           
           rm tmp.txt
           
