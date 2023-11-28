@@ -43,13 +43,12 @@ jobs:
           echo "$reviews" | jq 'map(select(.state=="APPROVED")) | .[].user.login'
 
           echo "$reviews" | jq 'sort_by(.user.login, submitted_at)
-          echo "$reviews" | jq 'sort_by(.user.login, submitted_at) | unique_by(.user.login)'
-          echo "$reviews" | jq 'sort_by(.user.login, submitted_at) | unique_by(.user.login) | map(select(.state=="APPROVED")) | .[].user.login'
+          #echo "$reviews" | jq 'sort_by(.user.login, submitted_at) | unique_by(.user.login)'
+          #echo "$reviews" | jq 'sort_by(.user.login, submitted_at) | unique_by(.user.login) | map(select(.state=="APPROVED")) | .[].user.login'
 
-          #r=$("$reviews" | jq 'sort_by(.user.login, submitted_at) | unique_by(.user.login)')
-          echo $r
+         
 
-          echo "$r" | jq ''
+       
 
           for item in $diffs; do
             echo $item
