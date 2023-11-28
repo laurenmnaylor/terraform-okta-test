@@ -28,10 +28,11 @@ jobs:
           echo "v=${{ github.event.pull_request.number }}"
           echo $v
           diffs=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt
+          cat diffs.txt
           echo "all=$((git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}) | xargs)" >> $GITHUB_OUTPUT
-          #echo "all=$(cat .github/CODEOWNERS-custom)" >> $GITHUB_OUTPUT
-          #echo $all
-          expanded=""
+         
+       
           cat .github/CODEOWNERS-custom | while read line
           do
             echo $line >> tmp.txt
