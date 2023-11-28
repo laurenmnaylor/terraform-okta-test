@@ -56,6 +56,9 @@ jobs:
           echo "APPROVERS.TXT"
           cat approvers.txt
 
+          echo "SORTED REQUIRED_REVIEWERS.TXT"
+          cat (sort -u required_reviewers.txt)
+
           
           echo "RUNNING COMM"
           comm <(sort -u approvers.txt) <(sort -u required_reviewers.txt)
