@@ -40,9 +40,9 @@ jobs:
           
           reviews=$(gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/laurenmnaylor/terraform-okta-test/pulls/${{ github.event.pull_request.number }}/reviews)
           echo $reviews
-          echo "$reviews" | jq 'map(select(.state=="APPROVED"))'
-          echo "users=$($reviews | jq '.[].user.login')"
-          echo "states=$($reviews | jq '.[].state')"
+          echo "$reviews" | jq 'map(select(.state=="APPROVED")) | .[].state'
+          echo "users=$("$reviews" | jq '.[].user.login')"
+          echo "states=$("$reviews" | jq '.[].state')"
           echo $users
           echo $states
 
