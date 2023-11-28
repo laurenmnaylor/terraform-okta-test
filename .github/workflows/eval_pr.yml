@@ -31,6 +31,7 @@ jobs:
           git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt
           echo "PRINT DIFFFS"
           cat diffs.txt
+          echo "DONE PRINTING DIFFS"
           echo "all=$((git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}) | xargs)" >> $GITHUB_OUTPUT
          
        
