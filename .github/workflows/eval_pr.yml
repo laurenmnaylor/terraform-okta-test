@@ -29,9 +29,9 @@ jobs:
           echo $v
           diffs=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt
-          echo "PRINT DIFFFS"
+         
           cat diffs.txt
-          echo "DONE PRINTING DIFFS"
+       
           echo "all=$((git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}) | xargs)" >> $GITHUB_OUTPUT
          
        
@@ -40,7 +40,10 @@ jobs:
             echo $line >> tmp.txt
           done
           cat tmp.txt
-         
+
+          echo "GREPPING"
+          grep -f diffs.txt tmp.txt
+          echo "DONE GREPPING"
           
           reviews=$(gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/laurenmnaylor/terraform-okta-test/pulls/${{ github.event.pull_request.number }}/reviews)
           echo "$reviews" | jq 'sort_by(.user.login, .submitted_at) | reverse | unique_by(.user.login) | map(select(.state=="APPROVED")) | .[].user.login'
