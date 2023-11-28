@@ -47,8 +47,6 @@ jobs:
           
           for item in $diffs; do
             echo $item
-            grep $item tmp.txt
-            grep -o "@\S*" tmp.txt
             grep $item tmp.txt | grep -o "@\S*"
           done
           rm tmp.txt
