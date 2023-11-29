@@ -26,26 +26,25 @@ jobs:
           echo "tjzwieg" >> approvers.txt
           cat approvers.txt
 
+          echo "laurenmnaylor" >> required_reviewers.txt
+          echo "okta" >> required_reviewers.txt
+
+          for $approver in approvers.txt
+            gh api graphql -f query='query GetTeamMembers {
+            organization(login: "Eaton-Vance-Corp") {
+            teams(first: 100, userLogins: ["$approver"]) {
+            totalCount
+              edges {
+                node {
+                  slug
+                }
+              }
+            }
+          }
+         
+          }' | jq '.data.organization.teams.edges[].node.slug' >> required_reviewers.txt
+
+          done
+
+          cat required_reviewers.txt
           
-          gh api graphql -f query='query GetTeamMembers {
-            firstQ: organization(login: "Eaton-Vance-Corp") {
-            teams(first: 100, userLogins: ["laurenmnaylor"]) {
-            totalCount
-              edges {
-                node {
-                  slug
-                }
-              }
-            }
-          }
-          secondQ: organization(login: "Eaton-Vance-Corp") {
-            teams(first: 100, userLogins: ["tjzwieg"]) {
-            totalCount
-              edges {
-                node {
-                  slug
-                }
-              }
-            }
-          }
-          }' | jq '.data.firstQ.teams.edges[].node.slug, .data.secondQ.teams.edges[].node.slug'
