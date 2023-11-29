@@ -25,10 +25,7 @@ jobs:
           
           gh api graphql -f query='query GetTeamMembers {
             organization(login: "Eaton-Vance-Corp") {
-            teams(first: 100, userLogins: ["ccipolla"]) {
-        
-             
-            }
+            teams(first: 100, userLogins: ["ccipolla"])
           }
           }' 
           #| jq '.data.organization.teams.edges[].node.name'
