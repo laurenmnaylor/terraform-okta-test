@@ -59,7 +59,7 @@ jobs:
 
           
           echo "RUNNING COMM"
-          comm <(sort -u approvers.txt) <(sort -u required_reviewers.txt)
+          comm -13 <(sort -u approvers.txt) <(sort -u required_reviewers.txt)
           
           rm tmp.txt
           
