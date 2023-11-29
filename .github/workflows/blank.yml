@@ -22,6 +22,10 @@ jobs:
           GH_TOKEN: ${{ secrets.ORG_TOKEN }}
         run: |
           
+          echo "laurenmnaylor >> approvers.txt
+          echo "tjzwieg" >> approvers.txt
+          cat approvers.txt
+
           
           gh api graphql -f query='query GetTeamMembers {
             firstQ: organization(login: "Eaton-Vance-Corp") {
