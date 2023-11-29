@@ -22,7 +22,7 @@ jobs:
           GH_TOKEN: ${{ secrets.ORG_TOKEN }}
         run: |
           
-          echo "laurenmnaylor >> approvers.txt
+          echo "laurenmnaylor" >> approvers.txt
           echo "tjzwieg" >> approvers.txt
           cat approvers.txt
 
