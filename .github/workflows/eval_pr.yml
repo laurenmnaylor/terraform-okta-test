@@ -42,12 +42,9 @@ jobs:
       - name: Output Main Required Reviewers
         id: rr
         run: |
-          echo "RRS<<EOF" >> $GITHUB_ENV 
-          cat .github/CODEOWNERS-custom | while read line
-          do
-            echo $line >> $GITHUB_ENV
-          done
-          echo "EOF" >> $GITHUB_ENV
+         
+         echo "RRS=$(cat .github/CODEOWNERS-custom)" >> $GITHUB_ENV
+         
         # Make sure we have some code to diff.
       - name: Checkout repository
         uses: actions/checkout@v2
