@@ -29,7 +29,8 @@ jobs:
           echo "laurenmnaylor" >> required_reviewers.txt
           echo "okta" >> required_reviewers.txt
 
-          for $approver in approvers.txt
+          for $approver in approvers.txt 
+          do
             gh api graphql -f query='query GetTeamMembers {
               organization(login: "Eaton-Vance-Corp") {
               teams(first: 100, userLogins: ["$approver"]) {
