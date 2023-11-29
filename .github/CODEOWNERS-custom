@@ -1,3 +1,4 @@
 test-spa-app/*  @lnaylor @laurenmbnaylor
 application_1/* @laurenmbnaylor
 test-spa-app/dev.tfvars @laurenmbnaylor
+auth_server_creation/* @lnaylor
