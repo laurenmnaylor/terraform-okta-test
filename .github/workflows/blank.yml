@@ -30,8 +30,10 @@ jobs:
               edges {
                 node {
                   name
+                  team-slug
                 }
               }
             }
           }
-          }' | jq '.data.organization.teams.edges[].node.name'
+          }' 
+          #| jq '.data.organization.teams.edges[].node.name'
