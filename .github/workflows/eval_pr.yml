@@ -10,8 +10,7 @@ permissions: write-all
 jobs:
   getMainCodeowners:
     runs-on: ubuntu-latest
-    outputs:
-      rrs: ${{ steps.rr.outputs.rrs}}
+   
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -24,7 +23,7 @@ jobs:
           do
             echo $line >> tmp.txt
           done
-          echo "rrs=$(cat tmp.txt)" >> $GITHUB_OUTPUT
+          cat tmp.txt
           
   changedfiles:
     runs-on: ubuntu-latest
@@ -44,9 +43,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Set outputs using the command.
         run: |
-          echo "NEEDS"
-          echo ${{needs.getMainCodeowners.outputs.rrs}}
          
+         echo "TMP FIRSST"
+         cat tmp.txt
           diffs=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt
 
