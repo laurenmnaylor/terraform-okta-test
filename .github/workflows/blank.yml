@@ -31,18 +31,18 @@ jobs:
 
           for $approver in approvers.txt
             gh api graphql -f query='query GetTeamMembers {
-            organization(login: "Eaton-Vance-Corp") {
-            teams(first: 100, userLogins: ["$approver"]) {
-            totalCount
-              edges {
-                node {
-                  slug
+              organization(login: "Eaton-Vance-Corp") {
+              teams(first: 100, userLogins: ["$approver"]) {
+                totalCount
+                  edges {
+                    node {
+                      slug
+                    }
+                  }
                 }
               }
-            }
-          }
          
-          }' | jq '.data.organization.teams.edges[].node.slug' >> required_reviewers.txt
+              }' | jq '.data.organization.teams.edges[].node.slug' >> required_reviewers.txt
 
           done
 
