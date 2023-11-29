@@ -10,7 +10,6 @@ permissions: write-all
 jobs:
   getMainCodeowners:
     runs-on: ubuntu-latest
-   
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -19,11 +18,15 @@ jobs:
       - name: Output Main Required Reviewers
         id: rr
         run: |
+          
+          
+          echo 
           cat .github/CODEOWNERS-custom | while read line
           do
-            echo $line >> tmp.txt
+            echo $line
           done
-          cat tmp.txt
+         
+         
           
   changedfiles:
     runs-on: ubuntu-latest
@@ -32,6 +35,18 @@ jobs:
     outputs:
       all: ${{ steps.changes.outputs.all}}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: main
+      - name: Output Main Required Reviewers
+        id: rr
+        run: |
+          echo 
+          cat .github/CODEOWNERS-custom | while read line
+          do
+            echo $line >> tmp.txt
+          done
         # Make sure we have some code to diff.
       - name: Checkout repository
         uses: actions/checkout@v2
