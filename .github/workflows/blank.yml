@@ -46,9 +46,12 @@ jobs:
                 }
               }
          
-              }' | jq '.data.organization.teams.edges[].node.slug'
+              }' | jq '.data.organization.teams.edges[].node.slug' >> required_reviewers.txt
+
 
           done
+
+          cat required_reviewers.txt
 
          
           
