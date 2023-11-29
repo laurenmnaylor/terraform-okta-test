@@ -34,4 +34,4 @@ jobs:
               }
             }
           }
-          }' | jq 'data.organization.teams.edges[].node.name'
+          }' | jq '.data.organization.teams.edges[].node.name'
