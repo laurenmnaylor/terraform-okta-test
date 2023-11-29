@@ -46,7 +46,10 @@ jobs:
           do
             echo $line >> tmp.txt
           done
-         echo "RRS=$(cat tmp.txt)" >> $GITHUB_OUTPUT
+          
+         echo "RRS<<EOF" >> $GITHUB_OUTPUT
+         echo $(cat tmp.txt) >> $GITHUB_OUTPUT
+         echo "EOF" >> $GITHUB_OUTPUT
          
         # Make sure we have some code to diff.
       - name: Checkout repository
