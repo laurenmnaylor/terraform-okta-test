@@ -25,7 +25,7 @@ jobs:
           
           gh api graphql -f query='query GetTeamMembers {
             organization(login: "Eaton-Vance-Corp") {
-            teams-1(first: 100, userLogins: ["laurenmnaylor"]) {
+            teams1(first: 100, userLogins: ["laurenmnaylor"]) {
             totalCount
               edges {
                 node {
