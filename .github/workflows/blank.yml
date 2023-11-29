@@ -9,6 +9,7 @@ jobs:
   changedfiles:
     runs-on: ubuntu-latest
     permissions: write-all
+    environment: Dev
     steps:
         # Make sure we have some code to diff.
       - name: Checkout repository
