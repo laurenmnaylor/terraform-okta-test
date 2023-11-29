@@ -63,7 +63,7 @@ jobs:
         # Set outputs using the command.
         run: |
           echo "RRS"
-          echo ${{ steps.rr.outputs.RRS }}
+          echo "${{ steps.rr.outputs.RRS }}"
        
           diffs=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt
@@ -86,7 +86,7 @@ jobs:
           
 
 
-          grep -f diffs.txt tmp.txt | grep -o "@\S*" >> required_reviewers.txt
+          { grep -f diffs.txt tmp.txt || true; } | { grep -o "@\S*" || true } >> required_reviewers.txt
 
           echo "REQUIRED_REVIEWERS.TXT"  
           cat required_reviewers.txt
