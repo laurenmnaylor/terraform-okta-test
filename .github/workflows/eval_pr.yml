@@ -42,11 +42,12 @@ jobs:
       - name: Output Main Required Reviewers
         id: rr
         run: |
-          echo 
+          echo "RRS<<EOF" >> $GITHUB_ENV 
           cat .github/CODEOWNERS-custom | while read line
           do
-            echo $line >> tmp.txt
+            echo $line >> $GITHUB_ENV
           done
+          echo "EOF" >> $GITHUB_ENV
         # Make sure we have some code to diff.
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -58,9 +59,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Set outputs using the command.
         run: |
-         
-         echo "TMP FIRSST"
-         cat tmp.txt
+          echo "RRS"
+         echo ${{ env.RRS }}
+       
           diffs=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt
 
