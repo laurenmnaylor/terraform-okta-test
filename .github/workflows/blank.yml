@@ -29,12 +29,9 @@ jobs:
             totalCount
               edges {
                 node {
-                  name
-                  description
                   slug
                 }
               }
             }
           }
-          }'
-          #| jq '.data.organization.teams.edges[].node.name'
+          }' | jq '.data.organization.teams.edges[].node.slug'
