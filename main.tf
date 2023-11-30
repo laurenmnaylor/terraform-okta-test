@@ -20,11 +20,3 @@ resource "okta_app_oauth" "test_app" {
   response_types             = ["code"]
   post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
 }
-
-resource "okta_auth_server" "example" {
-  audiences   = ["api://example"]
-  description = "My Example Auth Server"
-  name        = "example"
-  issuer_mode = "ORG_URL"
-  status      = "ACTIVE"
-}
