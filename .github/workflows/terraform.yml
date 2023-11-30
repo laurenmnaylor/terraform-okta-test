@@ -44,7 +44,7 @@ jobs:
       run: |
         terraform plan -input=false -detailed-exitcode
         echo "plan_output=$?" >> $GITHUB_ENV
-        echo $plan_output
+        echo "${{ env.plan_output }}
     - name: Terraform Apply
       env:
         TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
