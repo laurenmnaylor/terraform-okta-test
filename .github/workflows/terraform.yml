@@ -43,8 +43,7 @@ jobs:
         TF_VAR_env: 'dev'
       run: |
         terraform plan -input=false -detailed-exitcode
-        echo "plan_output=test" >> $GITHUB_ENV
-        echo "${{ env.plan_output }}"
+        echo "plan_output=$?" >> $GITHUB_ENV
     - name: Terraform Apply
       env:
         TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
@@ -52,4 +51,6 @@ jobs:
         TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
         TF_VAR_env: 'dev'
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
+      run: |
+        echo "${{ env.plan_output }}"
+        terraform apply -auto-approve -input=false
