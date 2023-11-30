@@ -46,12 +46,14 @@ jobs:
                 }
               }
          
-              }' | jq '.data.organization.teams.edges[].node.slug' >> required_reviewers.txt
+              }' | jq '.data.organization.teams.edges[].node.slug' >> approvers_teams.txt
 
 
           done
 
-          cat required_reviewers.txt
+          cat approvers.txt approvers_teams.txt >> approvers.txt
+
+          cat approvers.txt
 
          
           
