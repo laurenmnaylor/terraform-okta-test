@@ -50,9 +50,9 @@ jobs:
 
 
           done
-
+          sed -i 's/"//g' approvers_teams.txt
           cat approvers.txt approvers_teams.txt >> approvers_all.txt
-
+          echo "FINAL LIST"
           cat approvers_all.txt
 
          
