@@ -39,6 +39,7 @@ jobs:
           
           reviews=$(gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/laurenmnaylor/terraform-okta-test/pulls/${{ github.event.pull_request.number }}/reviews)
           echo "$reviews" | jq 'sort_by(.user.login, .submitted_at) | reverse | unique_by(.user.login) | map(select(.state=="APPROVED")) | .[].user.login' >> approvers.txt
+          sed -i 's/"//g' approvers.txt
           echo "APPROVERS.TXT"
           cat approvers.txt
 
