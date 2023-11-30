@@ -5,53 +5,11 @@ on:
   pull_request_review:
     types: [submitted]
 
-permissions: write-all
-
-jobs:
-  getMainCodeowners:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          ref: main
-      - name: Output Main Required Reviewers
-        id: rr
-        run: |
-          
-          
-          echo 
-          cat .github/CODEOWNERS-custom | while read line
-          do
-            echo $line
-          done
-         
-         
-          
+jobs:       
   changedfiles:
     runs-on: ubuntu-latest
-    needs: getMainCodeowners
-    # Map a step output to a job output
-    outputs:
-      all: ${{ steps.changes.outputs.all}}
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          ref: main
-      - name: Output Main Required Reviewers
-        id: rr
-        run: |
-         cat .github/CODEOWNERS-custom | while read line
-          do
-            echo $line >> tmp.txt
-          done
-          
-         echo "RRS<<EOF" >> $GITHUB_OUTPUT
-         echo $(cat tmp.txt) >> $GITHUB_OUTPUT
-         echo "EOF" >> $GITHUB_OUTPUT
-         
-        # Make sure we have some code to diff.
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -59,46 +17,29 @@ jobs:
       - name: Get changed files
         id: changes
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # Set outputs using the command.
+          GH_TOKEN: ${{ secrets.ORG_TOKEN }}
         run: |
-          echo "RRS"
-          echo "${{ steps.rr.outputs.RRS }}"
-       
-          diffs=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
-          git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt
-
-          
-          
+          git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt 
           echo "DIFFS.TXT"
           cat diffs.txt
        
-          echo "all=$((git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}) | xargs)" >> $GITHUB_OUTPUT
-         
-       
           cat .github/CODEOWNERS-custom | while read line
           do
-            echo $line >> tmp.txt
+            echo $line >> codeowners.txt
           done
-          echo "TMP.TXT"
-          cat tmp.txt
+          echo "CODEOWNERS.TXT"
+          cat codeowners.txt
 
-
-          if ! grep -f diffs.txt tmp.txt | grep -o "@\S*" >> required_reviewers.txt; then
+          if ! grep -f diffs.txt codeowners.txt | grep -o1 "@(\S*)" >> required_reviewers.txt; then
             echo "No matches" >> required_reviewers.txt
           fi
-
           echo "REQUIRED_REVIEWERS.TXT"  
           cat required_reviewers.txt
-        
           
           reviews=$(gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/laurenmnaylor/terraform-okta-test/pulls/${{ github.event.pull_request.number }}/reviews)
-          echo "$reviews" | jq 'sort_by(.user.login, .submitted_at) | reverse | unique_by(.user.login) | map(select(.state=="APPROVED")) | .[].user.login'
           echo "$reviews" | jq 'sort_by(.user.login, .submitted_at) | reverse | unique_by(.user.login) | map(select(.state=="APPROVED")) | .[].user.login' >> approvers.txt
-
           echo "APPROVERS.TXT"
           cat approvers.txt
-
 
           
           echo "RUNNING COMM"
@@ -107,19 +48,3 @@ jobs:
           
 
           
-          rm tmp.txt
-          
-  lint:
-    runs-on: ubuntu-latest
-    # require the first job to have ran
-    needs: changedfiles
-    # only run there are changed files
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: echo changed files
-        run: |
-          echo ${{needs.changedfiles.outputs.all}}
-          for item in ${{needs.changedfiles.outputs.all}}; do
-            echo "$item"
-          done
