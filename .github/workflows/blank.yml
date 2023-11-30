@@ -51,9 +51,9 @@ jobs:
 
           done
 
-          cat approvers.txt approvers_teams.txt >> approvers.txt
+          cat approvers.txt approvers_teams.txt >> approvers_all.txt
 
-          cat approvers.txt
+          cat approvers_all.txt
 
          
           
