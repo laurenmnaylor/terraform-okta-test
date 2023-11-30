@@ -60,6 +60,7 @@ jobs:
           echo "APPROVERS.TXT"
           cat approvers.txt
 
+          cat > approvers_teams.txt
           cat approvers.txt | while read line
           do
          
