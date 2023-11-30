@@ -28,8 +28,3 @@ resource "okta_auth_server" "example" {
   issuer_mode = "ORG_URL"
   status      = "ACTIVE"
 }
-
-
-module "test-spa-app" {
-  source = "./test-spa-app"
-}
