@@ -14,8 +14,24 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Get changed files
-        id: changes
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+         terraform_version: 1.6.0
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Plan
+        env:
+          TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
+          TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
+          TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
+          TF_VAR_env: 'dev'
+        run: |
+          terraform plan -input=false -detailed-exitcode
+          echo "plan_output=$?" >> $GITHUB_ENV
+      - name: Check Approvals
+        if: ${{ env.plan_output }} == 2
         env:
           GH_TOKEN: ${{ secrets.ORG_TOKEN }}
         run: |
@@ -43,10 +59,36 @@ jobs:
           echo "APPROVERS.TXT"
           cat approvers.txt
 
+          cat approvers.txt | while read line
+          do
+         
+            gh api graphql -f query='query GetTeamMembers {
+              organization(login: "Eaton-Vance-Corp") {
+              teams(first: 100, userLogins: ["'"$line"'"]) {
+                totalCount
+                  edges {
+                    node {
+                      slug
+                    }
+                  }
+                }
+              }
+         
+              }' | jq '.data.organization.teams.edges[].node.slug' >> approvers_teams.txt
+          done
+          sed -i 's/"//g' approvers_teams.txt
+          cat approvers.txt approvers_teams.txt >> approvers_all.txt
           
           echo "RUNNING COMM"
-          comm -13 <(sort -u approvers.txt) <(sort -u required_reviewers.txt)
+          comm -13 <(sort -u approvers_all.txt) <(sort -u required_reviewers.txt) >> missing_reviewers.txt
 
-          
+          echo "MISSING REVIEWERS"
+          cat missing_reviewers.txt
 
-          
+          if [ -s missing_reviewers.txt ]; then
+            echo "The following approvals are still needed:"
+            cat missing_reviewers.txt
+            exit 1;
+          else
+            echo "All required approvals have been given"
+          fi
