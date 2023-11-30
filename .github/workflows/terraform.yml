@@ -90,7 +90,7 @@ jobs:
       env:
         TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
         TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
-        TF_VAR_api_token: "dummyToken"
+        TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
         TF_VAR_env: 'dev'
       run: terraform plan -input=false
 
