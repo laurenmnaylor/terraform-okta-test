@@ -1,3 +1,3 @@
-test-spa-app/*  @lnaylor @laurenmbnaylor
+*  @lnaylor @laurenmbnaylor
 application_1/* @laurenmbnaylor
-test-spa-app/dev.tfvars @ppa-developers
+dev.tfvars @ppa-developers
