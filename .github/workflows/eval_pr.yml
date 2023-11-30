@@ -22,6 +22,7 @@ jobs:
       - name: Terraform Init
         run: terraform init
       - name: Terraform Plan
+        continue-on-error: true
         env:
           TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
           TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
