@@ -33,7 +33,7 @@ jobs:
           if ! grep -f diffs.txt codeowners.txt | grep -o "@\S*" >> required_reviewers.txt; then
             echo "No matches" >> required_reviewers.txt
           fi
-          sed 's/@/' required_reviewers.txt
+          sed 's/@//' required_reviewers.txt
           echo "REQUIRED_REVIEWERS.TXT"  
           cat required_reviewers.txt
           
