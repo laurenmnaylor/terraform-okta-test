@@ -30,7 +30,7 @@ jobs:
           echo "CODEOWNERS.TXT"
           cat codeowners.txt
 
-          if ! grep -f diffs.txt codeowners.txt | grep -o "@\S*" >> required_reviewers.txt; then
+          if ! grep -f diffs.txt codeowners.txt | pcregrep -o1 "@(\S*)" >> required_reviewers.txt; then
             echo "No matches" >> required_reviewers.txt
           fi
           echo "REQUIRED_REVIEWERS.TXT"  
