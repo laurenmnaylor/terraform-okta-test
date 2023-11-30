@@ -83,10 +83,10 @@ jobs:
           echo "TMP.TXT"
           cat tmp.txt
 
-          
 
-
-          { grep -f diffs.txt tmp.txt || true; } | { grep -o "@\S*" || true } >> required_reviewers.txt
+          if ! grep -f diffs.txt tmp.txt | grep -o "@\S*" >> required_reviewers.txt; then
+            echo "No matches" >> required_reviewers.txt
+          fi
 
           echo "REQUIRED_REVIEWERS.TXT"  
           cat required_reviewers.txt
