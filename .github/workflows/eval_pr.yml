@@ -52,7 +52,7 @@ jobs:
           cat codeowners.txt
 
           echo "GREP"
-          grep -Ef diffs_regex.txt codeowners.txt
+          grep -Eof diffs_regex.txt codeowners.txt
           
           if ! grep -Ef diffs_regex.txt codeowners.txt | grep -o "@\S*" >> required_reviewers.txt; then
             echo "No matches" >> required_reviewers.txt
