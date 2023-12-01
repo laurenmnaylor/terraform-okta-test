@@ -36,9 +36,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ORG_TOKEN }}
         run: |
-          git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt 
-          echo "DIFFS.TXT"
-          cat diffs.txt
+          git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt
+          cat diffs.txt | while read line
+          do
+            echo "(^|\s*)$line\s*" >> diffs_regex.txt
+          done
+          echo "DIFFS_REGEX.TXT"
+          cat diffs_regex.txt
        
           cat .github/CODEOWNERS-custom | while read line
           do
@@ -47,7 +51,7 @@ jobs:
           echo "CODEOWNERS.TXT"
           cat codeowners.txt
 
-          if ! grep -wf diffs.txt codeowners.txt | grep -o "@\S*" >> required_reviewers.txt; then
+          if ! grep -Ef diffs_regex.txt codeowners.txt | grep -o "@\S*" >> required_reviewers.txt; then
             echo "No matches" >> required_reviewers.txt
           fi
           sed -i 's/@//g' required_reviewers.txt
