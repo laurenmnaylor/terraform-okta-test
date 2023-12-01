@@ -39,7 +39,7 @@ jobs:
           git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} >> diffs.txt
           cat diffs.txt | while read line
           do
-            echo "(^|\s*)$line\s*" >> diffs_regex.txt
+            echo "(^| *)$line *" >> diffs_regex.txt
           done
           echo "DIFFS_REGEX.TXT"
           cat diffs_regex.txt
