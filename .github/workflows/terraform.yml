@@ -11,7 +11,12 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    environment: Personal-Test
+    environment: 'Personal-Test'
+    env:
+      TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
+      TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
+      TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
+      TF_VAR_env: 'personal-test'
     
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -22,29 +27,19 @@ jobs:
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v2
       with:
          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
          terraform_version: 1.6.0
     - name: Terraform Init
       run: terraform init
     - name: Terraform Plan
-      env:
-        TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
-        TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
-        TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
-        TF_VAR_env: 'personal-test'
       run: |
         echo "${{ vars.TF_VAR_org_name }}"
         echo "${{ vars.TF_VAR_base_url }}"
         terraform plan -input=false
     - name: Terraform Apply
-      env:
-        TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
-        TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
-        TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
-        TF_VAR_env: 'personal-test'
       run: |
         terraform apply -auto-approve -input=false
