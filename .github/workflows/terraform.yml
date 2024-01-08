@@ -36,6 +36,8 @@ jobs:
         TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
         TF_VAR_env: 'personal-test'
       run: |
+        echo "${{ vars.TF_VAR_org_name }}"
+        echo "${{ vars.TF_VAR_base_url }}"
         terraform plan -input=false
     - name: Terraform Apply
       env:
