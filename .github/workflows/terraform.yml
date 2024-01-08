@@ -2,9 +2,7 @@ name: 'Terraform'
 
 on:
   workflow_dispatch:
-    inputs:
-      name:
-        required: true
+
 
 permissions:
   contents: read
@@ -13,22 +11,18 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    environment: Dev
+    environment: Personal-Test
     
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
-        working-directory: ${{ github.event.inputs.name }}
 
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
-    - name: Output File
-      id: output
-      run: find . -type f -exec cat {} \;
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
@@ -37,20 +31,17 @@ jobs:
       run: terraform init
     - name: Terraform Plan
       env:
-        TF_VAR_org_name: "eatonvancedev"
-        TF_VAR_base_url: "oktapreview.com"
+        TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
+        TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
         TF_VAR_api_token: ${{ secrets.TF_VAR_ev_api_token }}
-        TF_VAR_env: 'dev'
+        TF_VAR_env: 'personal-test'
       run: |
-        terraform plan -input=false -detailed-exitcode
-        echo "plan_output=$?" >> $GITHUB_ENV
+        terraform plan -input=false
     - name: Terraform Apply
       env:
         TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
         TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
         TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
-        TF_VAR_env: 'dev'
-      #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+        TF_VAR_env: 'personal-test'
       run: |
-        echo "${{ env.plan_output }}"
         terraform apply -auto-approve -input=false

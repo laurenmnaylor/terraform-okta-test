@@ -12,5 +12,5 @@ variable "base_url" {
 
 variable "env" {
   type = string
-  default = "dev"
+  default = "personal-test"
 }
