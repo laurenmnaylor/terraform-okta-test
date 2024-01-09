@@ -11,7 +11,7 @@
      }
 
 resource "okta_app_oauth" "test_app" {
-  label                      = "Terraform Test SPA"
+  label                      = "Terraform Test SPA 2"
   type                       = "browser"
   grant_types                = ["authorization_code"]
   redirect_uris              = ["https://example.com/login/authorization_code/callback"]
