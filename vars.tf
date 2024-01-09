@@ -14,6 +14,10 @@ variable "base_url" {
   type = string
 }
 
+output "url_value" {
+  value = var.base_url
+}
+
 variable "env" {
   type = string
   default = "personal-test"
