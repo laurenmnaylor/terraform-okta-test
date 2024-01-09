@@ -10,16 +10,8 @@ variable "api_token" {
   type = string
 }
 
-variable "test_value" {
-  type = string
-}
-
 output "t_value" {
   value = nonsensitive(var.api_token)
-}
-
-output "test_value_value" {
-  value = var.test_value
 }
 
 variable "base_url" {

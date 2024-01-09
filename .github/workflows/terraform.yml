@@ -15,8 +15,7 @@ jobs:
     env:
       TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
       TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
-      TF_VAR_test_value: 'test'
-      TF_VAR_api_token: 00qbbg0HkcvtT7DuiFOzRhBlk0WmE3Rmc_Sfj8MVb8
+      TF_VAR_api_token: ${{ secrets.TF_VAR_API_TOKEN }}
       TF_VAR_env: 'personal-test'
     
 
@@ -32,22 +31,12 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-         cli_config_credentials_token: ${{ secrets.CLOUD_SECRET }}
          terraform_version: 1.6.0
     - name: Terraform Init
       run: terraform init
     - name: Terraform Plan
-      env:
-        TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
-        TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
-        TF_VAR_test_value: 'test_value'
-        TF_VAR_api_token: 00qbbg0HkcvtT7DuiFOzRhBlk0WmE3Rmc_Sfj8MVb8
-        TF_VAR_env: 'personal-test'
       run: |
-        echo "${{ vars.TF_VAR_org_name }}"
-        echo "${{ vars.TF_VAR_base_url }}"
-        echo "${{ vars.TF_VAR_DEBUG}}"
-        terraform plan -input=false -var="test_value=test"
+        terraform plan -input=false
     - name: Terraform Apply
       run: |
         terraform apply -auto-approve -input=false
