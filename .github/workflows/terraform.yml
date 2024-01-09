@@ -47,7 +47,7 @@ jobs:
         echo "${{ vars.TF_VAR_org_name }}"
         echo "${{ vars.TF_VAR_base_url }}"
         echo "${{ vars.TF_VAR_DEBUG}}"
-        terraform plan -input=false
+        terraform plan -input=false -var="test_value=test"
     - name: Terraform Apply
       run: |
         terraform apply -auto-approve -input=false
