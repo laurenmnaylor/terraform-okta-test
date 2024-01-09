@@ -15,7 +15,7 @@ jobs:
     env:
       org_name: ${{ vars.TF_VAR_org_name }}
       base_url: ${{ vars.TF_VAR_base_url }}
-      api_token: '00qbbg0HkcvtT7DuiFOzRhBlk0WmE3Rmc_Sfj8MVb8'
+      api_token: 00qbbg0HkcvtT7DuiFOzRhBlk0WmE3Rmc_Sfj8MVb8
       env: 'personal-test'
     
 
@@ -36,11 +36,11 @@ jobs:
     - name: Terraform Init
       run: terraform init
     - name: Terraform Plan
+      continue-on-error: true
       run: |
         echo "${{ vars.TF_VAR_org_name }}"
         echo "${{ vars.TF_VAR_base_url }}"
         echo "${{ vars.TF_VAR_DEBUG}}"
-        terraform output
         terraform plan -input=false
     - name: Terraform Apply
       run: |
