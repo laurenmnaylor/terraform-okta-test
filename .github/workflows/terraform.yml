@@ -46,5 +46,6 @@ jobs:
         terraform apply -auto-approve -input=false
         terraform output
         ls
-        cat /home/runner/work/_temp/*/terraform-bin/output
+        cd /home/runner/work/_temp/*
+        ls
 
