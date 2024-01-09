@@ -36,7 +36,6 @@ jobs:
     - name: Terraform Init
       run: terraform init
     - name: Terraform Plan
-      continue-on-error: true
       run: |
         echo "${{ vars.TF_VAR_org_name }}"
         echo "${{ vars.TF_VAR_base_url }}"
