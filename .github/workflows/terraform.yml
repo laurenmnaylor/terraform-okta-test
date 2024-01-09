@@ -45,7 +45,3 @@ jobs:
       run: |
         terraform apply -auto-approve -input=false
         terraform output
-        ls
-        cd /home/runner/work/_temp/*
-        ls
-

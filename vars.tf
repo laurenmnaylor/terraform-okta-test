@@ -11,8 +11,7 @@ variable "api_token" {
 }
 
 output "t_value" {
-  value = var.api_token
-  sensitive = true
+  value = nonsensitive(var.api_token)
 }
 
 variable "base_url" {
