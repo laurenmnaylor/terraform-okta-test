@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: 'Personal-Test'
     env:
-      org_name: ${{ vars.TF_VAR_org_name }}
-      base_url: ${{ vars.TF_VAR_base_url }}
+      TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
+      TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
       TF_VAR_test_value: 00qbbg0HkcvtT7DuiFOzRhBlk0WmE3Rmc_Sfj8MVb8
-      api_token: 00qbbg0HkcvtT7DuiFOzRhBlk0WmE3Rmc_Sfj8MVb8
-      env: 'personal-test'
+      TF_VAR_api_token: 00qbbg0HkcvtT7DuiFOzRhBlk0WmE3Rmc_Sfj8MVb8
+      TF_VAR_env: 'personal-test'
     
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
