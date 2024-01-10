@@ -38,6 +38,14 @@
  resource "okta_app_oauth" "spa_application" {
    label = "SPA Application"
    type = "browser"
+   consent_method = "REQUIRED"
+   grant_types = ["authorization_code"]
+   issuer_mode = "DYNAMIC"
+   post_logout_redirect_uris = ["http://localhost:8080"]
+   redirect_uris = ["http://localhost:8080/login/callback"]
+   response_types = ["code"]
+   token_endpoint_auth_method = "none"
+   wildcard_redirect = "SUBDOMAIN" #To disallow, use DISABLED
  }
  
  
