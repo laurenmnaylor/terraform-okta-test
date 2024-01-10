@@ -27,7 +27,7 @@
  }
  
  resource "okta_app_oauth" "m2m_application" {
-   label = "M2M Application"
+   label = "M2M Application 2"
    type  = "service"
    grant_types = ["client_credentials"]
    consent_method = "REQUIRED"
