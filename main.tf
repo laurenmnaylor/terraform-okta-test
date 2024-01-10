@@ -8,7 +8,7 @@
            name = "test-workspace"
          }
        }
-     }
+ }
 
 #resource "okta_app_oauth" "test_app" {
 #  label                      = "Terraform Test SPA"
@@ -20,3 +20,15 @@
 #  response_types             = ["code"]
 #  post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
 #}
+ 
+ import {
+   to = okta_app_oauth.m2m_application
+   id = "0oaee5ic3t54fTqrw5d7"
+ }
+ 
+ resource "okta_app_oauth" "m2m_application" {
+   label = "M2M Application"
+   type  = "service"
+ }
+ 
+ 
