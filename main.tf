@@ -52,7 +52,7 @@
    name = "Test Group 1"
    description = "First Test Group"
    custom_profile_attributes = jsonencode({
-     "test_attribute_1" = "Value1"
+     "test_attribute_1" = "Value2"
    })
  }
  
