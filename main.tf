@@ -5,13 +5,13 @@
 
          # The name of the Terraform Cloud workspace to store Terraform state files in.
          workspaces {
-           name = "test-workspace-2"
+           name = "test-workspace"
          }
        }
      }
 
 resource "okta_app_oauth" "test_app" {
-  label                      = "Terraform Test SPA 8"
+  label                      = "Terraform Test SPA"
   type                       = "browser"
   grant_types                = ["authorization_code"]
   redirect_uris              = ["https://example.com/login/authorization_code/callback"]
