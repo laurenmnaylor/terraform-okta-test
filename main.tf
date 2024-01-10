@@ -36,7 +36,8 @@
  }
 
  resource "okta_app_oauth" "spa_application" {
-   label                      = "SPA Application"
+   label = "SPA Application"
+   type = "browser"
  }
  
  
