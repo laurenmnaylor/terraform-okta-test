@@ -31,7 +31,7 @@
  }
 
  resource "okta_app_oauth" "spa_application" {
-   label = "SPA Application 2"
+   label = "SPA Application"
    type = "browser"
    consent_method = "REQUIRED"
    grant_types = ["authorization_code"]
@@ -41,6 +41,19 @@
    response_types = ["code"]
    token_endpoint_auth_method = "none"
    wildcard_redirect = "SUBDOMAIN" #To disallow, use DISABLED
+ }
+ 
+ import {
+   to = okta_group.test_group_1
+   id = "00gee85hju3BQhhhW5d7"
+ }
+ 
+ resource "okta_group" "test_group_1" {
+   name = "Test Group 1"
+   description = "First Test Group"
+   custom_profile_attributes = jsonencode({
+     "test_attribute_1" = "Value1"
+   })
  }
  
  
