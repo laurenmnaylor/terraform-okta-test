@@ -29,6 +29,10 @@
  resource "okta_app_oauth" "m2m_application" {
    label = "M2M Application"
    type  = "service"
+   grant_types = ["client_credentials"]
+   consent_method = "REQUIRED"
+   issuer_mode = "DYNAMIC"
+   response_types = ["token"]
  }
  
  
