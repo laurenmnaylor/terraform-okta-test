@@ -22,12 +22,21 @@
 #}
  
  resource "okta_app_oauth" "m2m_application" {
-   label = "M2M Application 3"
+   label = "M2M Application"
    type  = "service"
    grant_types = ["client_credentials"]
    consent_method = "REQUIRED"
    issuer_mode = "DYNAMIC"
    response_types = ["token"]
+ }
+ 
+ import {
+   to = okta_app_oauth.spa_application
+   id = "0oaee844w5LSVHOcW5d7"
+ }
+
+ resource "okta_app_oauth" "spa_application" {
+   label                      = "SPA Application"
  }
  
  
