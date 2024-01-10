@@ -29,14 +29,9 @@
    issuer_mode = "DYNAMIC"
    response_types = ["token"]
  }
- 
- import {
-   to = okta_app_oauth.spa_application
-   id = "0oaee844w5LSVHOcW5d7"
- }
 
  resource "okta_app_oauth" "spa_application" {
-   label = "SPA Application"
+   label = "SPA Application 2"
    type = "browser"
    consent_method = "REQUIRED"
    grant_types = ["authorization_code"]
