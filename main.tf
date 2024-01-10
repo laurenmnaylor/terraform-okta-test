@@ -21,13 +21,8 @@
 #  post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
 #}
  
- import {
-   to = okta_app_oauth.m2m_application
-   id = "0oaee5ic3t54fTqrw5d7"
- }
- 
  resource "okta_app_oauth" "m2m_application" {
-   label = "M2M Application 2"
+   label = "M2M Application 3"
    type  = "service"
    grant_types = ["client_credentials"]
    consent_method = "REQUIRED"
