@@ -111,7 +111,7 @@
    ]
    track_all_users = true
  }
-# 
+ 
 # import {
 #   to = okta_app_group_assignments.spa_application_group_memberships
 #   id = okta_app_oauth.spa_application.id
@@ -122,7 +122,7 @@
 #     id = okta_group.test_group_1.id
 #     priority = 0
 #   }
- }
+# }
  
  
  
