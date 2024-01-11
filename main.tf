@@ -43,17 +43,32 @@
    wildcard_redirect = "SUBDOMAIN" #To disallow, use DISABLED
  }
  
- import {
-   to = okta_group.test_group_1
-   id = "00gee85hju3BQhhhW5d7"
- }
- 
  resource "okta_group" "test_group_1" {
    name = "Test Group 1"
    description = "First Test Group"
    custom_profile_attributes = jsonencode({
-     "test_attribute_1" = "Value2"
+     "test_attribute_1" = "Value1"
    })
  }
+ 
+ import {
+   to = okta_user.authserver_admin
+   id = "00ud7qvhwkCWxtxKz5d7"
+ }
+ resource "okta_user" "authserver_admin" {
+   first_name = "AuthServer"
+   last_name = "Admin"
+   login = "authServerAdmin@paraport.com"
+   email = "authServerAdmin@paraport.com"
+ }
+ 
+ 
+ 
+# resource "okta_group_membership" "test_group_1_membership" {
+#   group_id = okta_group.test_group_1.id
+#   
+# }
+ 
+ 
  
  
