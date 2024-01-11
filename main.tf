@@ -57,7 +57,7 @@
  }
  resource "okta_user" "authserver_admin" {
    first_name = "AuthServer"
-   last_name = "Admin"
+   last_name = "Admin2"
    login = "authServerAdmin@paraport.com"
    email = "authServerAdmin@paraport.com"
  }
