@@ -84,11 +84,6 @@
    track_all_users = true
  }
  
- import {
-   to = okta_group.test_group_2
-   id = "00gees50igswdDetZ5d7"
- }
- 
  resource "okta_group" "test_group_2" {
    name = "Test Group 2"
    description = "Second Test Group"
@@ -103,11 +98,6 @@
    track_all_users = false
  }
 
- import {
-   to = okta_group.test_group_3
-   id = "00geesb16iohE1qSz5d7"
- }
-
  resource "okta_group" "test_group_3" {
    name = "Test Group 3"
    description = "Third Test Group"
@@ -120,6 +110,17 @@
      data.okta_user.nicholas_giuliani.id
    ]
    track_all_users = true
+ }
+ import {
+   to = okta_app_group_assignments.spa_application_group_memberships.id
+   id = okta_app_oauth.spa_application.id
+ }
+ resource "okta_app_group_assignments" "spa_application_group_memberships" {
+   app_id = okta_app_oauth.spa_application.id
+   group {
+     id = okta_group.test_group_1.id
+     priority = 1
+   }
  }
  
  
