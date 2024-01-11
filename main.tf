@@ -51,23 +51,42 @@
    })
  }
  
- import {
-   to = okta_user.authserver_admin
-   id = "00ud7qvhwkCWxtxKz5d7"
- }
  resource "okta_user" "authserver_admin" {
    first_name = "AuthServer"
-   last_name = "Admin2"
+   last_name = "Admin"
    login = "authServerAdmin@paraport.com"
    email = "authServerAdmin@paraport.com"
  }
  
+ data "okta_user" "nicholas_giuliani" {
+   search {
+     name = "profile.firstName"
+     value = "Nicholas"
+   }
+   
+   search {
+     name = "profile.lastName"
+     value = "Giuliani"
+   }
+   
+   search {
+     name = "profile.login"
+     value = "nsgiuliani@paraport.com"
+   }
+ }
  
+ import {
+   to = okta_group_membership.test_group_1_membership
+   id = okta_group.test_group_1.id
+ }
  
-# resource "okta_group_membership" "test_group_1_membership" {
-#   group_id = okta_group.test_group_1.id
-#   
-# }
+ resource "okta_group_membership" "test_group_1_membership" {
+   group_id = okta_group.test_group_1.id
+   users = [
+    okta_user.authserver_admin.id,
+    data.okta_user.nicholas_giuliani.id 
+   ]
+ }
  
  
  
