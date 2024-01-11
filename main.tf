@@ -102,6 +102,25 @@
    ]
    track_all_users = false
  }
+
+ import {
+   to = okta_group.test_group_3
+   id = "00geesb16iohE1qSz5d7"
+ }
+
+ resource "okta_group" "test_group_3" {
+   name = "Test Group 3"
+   description = "Third Test Group"
+ }
+
+ resource "okta_group_memberships" "test_group_3_membership" {
+   group_id = okta_group.test_group_3.id
+   users = [
+     okta_user.authserver_admin.id,
+     data.okta_user.nicholas_giuliani.id
+   ]
+   track_all_users = true
+ }
  
  
  
