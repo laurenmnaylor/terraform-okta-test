@@ -111,16 +111,17 @@
    ]
    track_all_users = true
  }
- import {
-   to = okta_app_group_assignments.spa_application_group_memberships
-   id = okta_app_oauth.spa_application.id
- }
- resource "okta_app_group_assignments" "spa_application_group_memberships" {
-   app_id = okta_app_oauth.spa_application.id
-   group {
-     id = okta_group.test_group_1.id
-     priority = 1
-   }
+# 
+# import {
+#   to = okta_app_group_assignments.spa_application_group_memberships
+#   id = okta_app_oauth.spa_application.id
+# }
+# resource "okta_app_group_assignments" "spa_application_group_memberships" {
+#   app_id = okta_app_oauth.spa_application.id
+#   group {
+#     id = okta_group.test_group_1.id
+#     priority = 0
+#   }
  }
  
  
