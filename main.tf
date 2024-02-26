@@ -21,14 +21,14 @@
 #  post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
 #}
  
-# resource "okta_app_oauth" "m2m_application" {
-#   label = "M2M Application 2"
-#   type  = "service"
-#   grant_types = ["client_credentials"]
-#   consent_method = "REQUIRED"
-#   issuer_mode = "DYNAMIC"
-#   response_types = ["token"]
-# }
+ resource "okta_app_oauth" "m2m_application_2" {
+   label = "M2M Application 2"
+   type  = "service"
+   grant_types = ["client_credentials"]
+   consent_method = "REQUIRED"
+   issuer_mode = "DYNAMIC"
+   response_types = ["token"]
+ }
 
 # resource "okta_app_oauth" "spa_application" {
 #   label = "SPA Application"
@@ -84,10 +84,10 @@
 #   track_all_users = true
 # }
 # 
- resource "okta_group" "test_group_6" {
-   name = "Test Group 6"
-   description = "Sixth Test Group"
- }
+# resource "okta_group" "test_group_6" {
+#   name = "Test Group 6"
+#   description = "Sixth Test Group"
+# }
 #
 # resource "okta_group_memberships" "test_group_2_membership" {
 #   group_id = okta_group.test_group_2.id
