@@ -84,7 +84,7 @@
 #   track_all_users = true
 # }
 # 
- resource "okta_group" "test_group_2" {
+ resource "okta_group" "test_group_3" {
    name = "Test Group 3"
    description = "Third Test Group"
  }
