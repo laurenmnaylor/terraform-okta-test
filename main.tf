@@ -21,7 +21,7 @@ resource "okta_app_oauth" "test_app" {
   post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
 }
  
- resource "okta_app_user_schema" "custom_app_profile" {
+ resource "okta_app_user_schema_property" "custom_app_profile" {
    app_id = okta_app_oauth.test_app.id
    index = "customProperty"
    title = "customProperty"
