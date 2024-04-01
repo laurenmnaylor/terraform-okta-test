@@ -1,0 +1,40 @@
+name: 'Terraform'
+
+on:
+  workflow_dispatch:
+
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: 'Personal-Test'
+    env:
+      TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
+      TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
+      TF_VAR_api_token: ${{ secrets.TF_VAR_API_TOKEN }}
+      TF_VAR_env: 'personal-test'
+    
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+         terraform_version: 1.6.0
+         cli_config_credentials_token: ${{ secrets.CLOUD_SECRET }}
+    - name: Terraform Init
+      run: terraform init
+    - name: Terraform Plan
+      run: |
+        terraform plan -input=false
