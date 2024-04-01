@@ -23,8 +23,8 @@ resource "okta_app_oauth" "test_app" {
  
  resource "okta_app_user_schema_property" "custom_app_profile" {
    app_id = okta_app_oauth.test_app.id
-   index = "customProperty"
-   title = "customProperty"
+   index = "customPropertyNew"
+   title = "customPropertyNew"
    type = "string"
  }
  
