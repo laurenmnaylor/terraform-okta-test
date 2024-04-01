@@ -10,5 +10,5 @@ provider "okta" {
 #  "okta.oauthIntegrations.manage", "okta.oauthIntegrations.read"]
   # Terraform cloud is messing with pipeline's ability to pass token value. 
   # Hardcoding here because so I can test other things and my personal Okta account doesn't control anything and is just for testing terraform
-   api_token = "00osUZmWO0SCCHw-XoNuRnpuz_kD7HsXt2ODdI7IbQ"
+   api_token = "003Fzxrtmlf6zBuasEy_BEqhbaKjyNqPcM2sUGXuKZ"
 }
