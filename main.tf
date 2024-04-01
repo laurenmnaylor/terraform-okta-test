@@ -28,6 +28,15 @@ resource "okta_app_oauth" "test_app" {
    type = "string"
  }
  
+ resource "okta_profile_mapping" "mapping" {
+   source_id = okta_app_oauth.test_app.id
+   target_id = okta_app_oauth.test_app.id
+   
+   mappings {
+     id = "nickname"
+     expression = "user.firstName"
+   }
+ }
  resource "okta_app_oauth" "m2m_application_2" {
    label = "M2M Application 3"
    type  = "service"
