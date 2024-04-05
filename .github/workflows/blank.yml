@@ -9,7 +9,7 @@ jobs:
   changedfiles:
     runs-on: ubuntu-latest
     permissions: write-all
-    environment: Dev
+    environment: Personal-Test
     steps:
         # Make sure we have some code to diff.
       - name: Checkout repository
@@ -22,38 +22,40 @@ jobs:
           GH_TOKEN: ${{ secrets.ORG_TOKEN }}
         run: |
           
-          echo "laurenmnaylor" >> approvers.txt
-          echo "tjzwieg" >> approvers.txt
-         
-
-          echo "laurenmnaylor" >> required_reviewers.txt
-          echo "okta" >> required_reviewers.txt
-
+          gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/laurenmnaylor/terraform-okta-test/actions/workflows/eval_pr.yml/runs
           
-
-          cat approvers.txt | while read line
-          do
-         
-            gh api graphql -f query='query GetTeamMembers {
-              organization(login: "Eaton-Vance-Corp") {
-              teams(first: 100, userLogins: ["'"$line"'"]) {
-                totalCount
-                  edges {
-                    node {
-                      slug
-                    }
-                  }
-                }
-              }
-         
-              }' | jq '.data.organization.teams.edges[].node.slug' >> approvers_teams.txt
-
-
-          done
-          sed -i 's/"//g' approvers_teams.txt
-          cat approvers.txt approvers_teams.txt >> approvers_all.txt
-          echo "FINAL LIST"
-          cat approvers_all.txt
+#          echo "laurenmnaylor" >> approvers.txt
+#          echo "tjzwieg" >> approvers.txt
+#         
+#
+#          echo "laurenmnaylor" >> required_reviewers.txt
+#          echo "okta" >> required_reviewers.txt
+#
+#          
+#
+#          cat approvers.txt | while read line
+#          do
+#         
+#            gh api graphql -f query='query GetTeamMembers {
+#              organization(login: "Eaton-Vance-Corp") {
+#              teams(first: 100, userLogins: ["'"$line"'"]) {
+#                totalCount
+#                  edges {
+#                    node {
+#                      slug
+#                    }
+#                  }
+#                }
+#              }
+#         
+#              }' | jq '.data.organization.teams.edges[].node.slug' >> approvers_teams.txt
+#
+#
+#          done
+#          sed -i 's/"//g' approvers_teams.txt
+#          cat approvers.txt approvers_teams.txt >> approvers_all.txt
+#          echo "FINAL LIST"
+#          cat approvers_all.txt
 
          
           
