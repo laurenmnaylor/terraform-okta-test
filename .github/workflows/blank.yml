@@ -24,7 +24,7 @@ jobs:
           
           workflow_id=$(gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/laurenmnaylor/terraform-okta-test/actions/workflows/eval_pr.yml/runs?branch=rtysfgd | jq '.workflow_runs | .[].id')
           echo "gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/laurenmnaylor/terraform-okta-test/actions/runs/$workflow_id/rerun" >> rerun.sh
-          
+          chmod +x rerun.sh
           ./rerun.sh
           
 #          echo "laurenmnaylor" >> approvers.txt
