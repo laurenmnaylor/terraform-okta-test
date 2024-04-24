@@ -9,7 +9,7 @@ on:
 permissions: write-all
 
 jobs:
-  changedfiles:
+  rerunjob:
     runs-on: ubuntu-latest
     permissions: write-all
     environment: Personal-Test
