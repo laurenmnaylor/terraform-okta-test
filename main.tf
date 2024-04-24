@@ -12,7 +12,7 @@
 
 resource "okta_auth_server" "authorization_server" {
   audiences = ["my_aud"]
-  name      = "My Authorization Server"
+  name      = "My Authorization Server 3"
 }
 
 #resource "okta_app_oauth" "test_app" {
