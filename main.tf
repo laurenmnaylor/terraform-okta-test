@@ -54,13 +54,13 @@ resource "okta_app_oauth" "test_app" {
   response_types             = ["code"]
   post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
 }
-# 
-# resource "okta_app_user_schema_property" "custom_app_profile" {
-#   app_id = okta_app_oauth.test_app.id
-#   index = "customPropertyNew"
-#   title = "customPropertyNew"
-#   type = "string"
-# }
+
+ resource "okta_app_user_schema_property" "custom_app_profile" {
+   app_id = okta_app_oauth.test_app.id
+   index = "customPropertyNew"
+   title = "customPropertyNew"
+   type = "string"
+ }
 # 
 # resource "okta_profile_mapping" "mapping" {
 #   source_id = okta_app_oauth.test_app.id
