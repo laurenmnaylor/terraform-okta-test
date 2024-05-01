@@ -17,7 +17,7 @@
 
 resource "okta_auth_server_scope" "scope" {
   auth_server_id = "ausgtf8p4e5fqiWYU5d7"
-  name = "My Scope"
+  name = "MyScope"
   description = "My Scope Description"
 }
 
