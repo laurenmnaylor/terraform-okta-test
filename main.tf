@@ -104,13 +104,13 @@
 #   wildcard_redirect = "SUBDOMAIN" #To disallow, use DISABLED
 # }
 # 
- resource "okta_group" "test_group_1" {
-   name = "Test Group 1"
-   description = "First Test Group"
-   custom_profile_attributes = jsonencode({
-     "test_attribute_1" = "Value1"
-   })
- }
+# resource "okta_group" "test_group_1" {
+#   name = "Test Group 1"
+#   description = "First Test Group"
+#   custom_profile_attributes = jsonencode({
+#     "test_attribute_1" = "Value1"
+#   })
+# }
 
 #resource "okta_group_rule" "group_rule" {
 #  name = "GroupRule"
@@ -123,6 +123,8 @@
    last_name = "Admin"
    login = "authServerAdmin@paraport.com"
    email = "authServerAdmin@paraport.com"
+   status = "ACTIVE"
+   password = "password"
  }
 # 
 # data "okta_user" "nicholas_giuliani" {
@@ -142,13 +144,13 @@
 #   }
 # }
 # 
- resource "okta_group_memberships" "test_group_1_membership" {
-   group_id = okta_group.test_group_1.id
-   users = [
-    okta_user.authserver_admin.id
-   ]
-   track_all_users = true
- }
+# resource "okta_group_memberships" "test_group_1_membership" {
+#   group_id = okta_group.test_group_1.id
+#   users = [
+#    okta_user.authserver_admin.id
+#   ]
+#   track_all_users = true
+# }
 # 
 # resource "okta_group" "test_group_6" {
 #   name = "Test Group 6"
