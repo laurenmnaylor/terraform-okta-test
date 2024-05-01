@@ -118,11 +118,11 @@
 #  expression_value = "String.startsWith(user.firstName,\"lauren\")"
 #}
 
-resource "okta_user_schema_property" "custom_user_prop" {
-  index = "userProperty"
-  title = "User Property"
-  type = "string"
-}
+#resource "okta_user_schema_property" "custom_user_prop" {
+#  index = "userProperty"
+#  title = "User Property"
+#  type = "string"
+#}
 # 
 # resource "okta_user" "authserver_admin" {
 #   first_name = "AuthServer"
@@ -193,6 +193,12 @@ resource "okta_user_schema_property" "custom_user_prop" {
 #     priority = 0
 #   }
 # }
+
+resource "okta_trusted_origin" "trusted_origin" {
+  name = "Trusted Origin"
+  origin = "https://test.com"
+  scopes = ["CORS"]
+}
  
  
  
