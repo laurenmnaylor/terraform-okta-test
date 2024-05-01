@@ -18,6 +18,7 @@ resource "okta_auth_server" "authorization_server" {
 resource "okta_auth_server_scope" "scope" {
   auth_server_id = okta_auth_server.authorization_server.id
   name = "My Scope"
+  description = "My Scope Description"
 }
 
 #resource "okta_app_oauth" "test_app" {
