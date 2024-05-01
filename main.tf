@@ -15,6 +15,11 @@ resource "okta_auth_server" "authorization_server" {
   name      = "My Authorization Server"
 }
 
+resource "okta_auth_server_scope" "scope" {
+  auth_server_id = okta_auth_server.authorization_server.id
+  name = "My Scope"
+}
+
 #resource "okta_app_oauth" "test_app" {
 #  label                      = "Terraform Test SPA"
 #  type                       = "browser"
