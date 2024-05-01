@@ -62,25 +62,26 @@ resource "okta_app_oauth" "test_app" {
    type = "string"
  }
 
- resource "okta_profile_mapping" "mapping" {
-   source_id = okta_app_oauth.test_app.id
-   target_id = okta_app_oauth.test_app.id
+# resource "okta_profile_mapping" "mapping" {
+#   source_id = okta_app_oauth.test_app.id
+#   target_id = okta_app_oauth.test_app.id
+#
+#   mappings {
+#     id = "nickname"
+#     expression = "user.firstName"
+#   }
+#
+#   mappings {
+#     id = "customPropertyNew"
+#     expression = "user.zipCode"
+#   }
+#
+#   mappings {
+#     id = "userName"
+#     expression = "user.employeeNumber"
+#   }
+# }
 
-   mappings {
-     id = "nickname"
-     expression = "user.firstName"
-   }
-
-   mappings {
-     id = "customPropertyNew"
-     expression = "user.zipCode"
-   }
-
-   mappings {
-     id = "userName"
-     expression = "user.employeeNumber"
-   }
- }
 # resource "okta_app_oauth" "m2m_application_2" {
 #   label = "M2M Application 3"
 #   type  = "service"
@@ -103,13 +104,13 @@ resource "okta_app_oauth" "test_app" {
 #   wildcard_redirect = "SUBDOMAIN" #To disallow, use DISABLED
 # }
 # 
-# resource "okta_group" "test_group_1" {
-#   name = "Test Group 1"
-#   description = "First Test Group"
-#   custom_profile_attributes = jsonencode({
-#     "test_attribute_1" = "Value1"
-#   })
-# }
+ resource "okta_group" "test_group_1" {
+   name = "Test Group 1"
+   description = "First Test Group"
+   custom_profile_attributes = jsonencode({
+     "test_attribute_1" = "Value1"
+   })
+ }
 # 
 # resource "okta_user" "authserver_admin" {
 #   first_name = "AuthServer"
@@ -172,13 +173,13 @@ resource "okta_app_oauth" "test_app" {
 #   track_all_users = true
 # }
 #
-# resource "okta_app_group_assignments" "spa_application_group_memberships" {
-#   app_id = okta_app_oauth.spa_application.id
-#   group {
-#     id = okta_group.test_group_1.id
-#     priority = 0
-#   }
-# }
+ resource "okta_app_group_assignments" "spa_application_group_memberships" {
+   app_id = okta_app_oauth.test_app.id
+   group {
+     id = okta_group.test_group_1.id
+     priority = 0
+   }
+ }
  
  
  
