@@ -117,15 +117,21 @@
 #  group_assignments = [okta_group.test_group_1.id]
 #  expression_value = "String.startsWith(user.firstName,\"lauren\")"
 #}
+
+resource "okta_user_base_schema_property" "custom_user_prop" {
+  index = "userProperty"
+  title = "User Property"
+  type = "string"
+}
 # 
- resource "okta_user" "authserver_admin" {
-   first_name = "AuthServer"
-   last_name = "Admin"
-   login = "authServerAdmin@paraport.com"
-   email = "authServerAdmin@paraport.com"
-   status = "ACTIVE"
-   password = "test_pw_10!"
- }
+# resource "okta_user" "authserver_admin" {
+#   first_name = "AuthServer"
+#   last_name = "Admin"
+#   login = "authServerAdmin@paraport.com"
+#   email = "authServerAdmin@paraport.com"
+#   status = "ACTIVE"
+#   password = "test_pw_10!"
+# }
 # 
 # data "okta_user" "nicholas_giuliani" {
 #   search {
