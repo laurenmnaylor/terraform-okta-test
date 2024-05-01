@@ -44,23 +44,23 @@
 #  grant_type_whitelist = ["client_credentials"]
 #}
 
-resource "okta_app_oauth" "test_app" {
-  label                      = "Terraform Test SPA"
-  type                       = "browser"
-  grant_types                = ["authorization_code"]
-  redirect_uris              = ["https://example.com/login/authorization_code/callback"]
-  consent_method             = "REQUIRED"
-  token_endpoint_auth_method = "none"
-  response_types             = ["code"]
-  post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
-}
-
- resource "okta_app_user_schema_property" "custom_app_profile" {
-   app_id = okta_app_oauth.test_app.id
-   index = "customPropertyNew"
-   title = "customPropertyNew"
-   type = "string"
- }
+#resource "okta_app_oauth" "test_app" {
+#  label                      = "Terraform Test SPA"
+#  type                       = "browser"
+#  grant_types                = ["authorization_code"]
+#  redirect_uris              = ["https://example.com/login/authorization_code/callback"]
+#  consent_method             = "REQUIRED"
+#  token_endpoint_auth_method = "none"
+#  response_types             = ["code"]
+#  post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
+#}
+#
+# resource "okta_app_user_schema_property" "custom_app_profile" {
+#   app_id = okta_app_oauth.test_app.id
+#   index = "customPropertyNew"
+#   title = "customPropertyNew"
+#   type = "string"
+# }
 
 # resource "okta_profile_mapping" "mapping" {
 #   source_id = okta_app_oauth.test_app.id
@@ -111,6 +111,12 @@ resource "okta_app_oauth" "test_app" {
      "test_attribute_1" = "Value1"
    })
  }
+
+resource "okta_group_rule" "group_rule" {
+  name = "GroupRule"
+  group_assignments = [okta_group.test_group_1.id]
+  expression_value = "String.startsWith(user.firstName,\"lauren\")"
+}
 # 
 # resource "okta_user" "authserver_admin" {
 #   first_name = "AuthServer"
@@ -173,13 +179,13 @@ resource "okta_app_oauth" "test_app" {
 #   track_all_users = true
 # }
 #
- resource "okta_app_group_assignments" "spa_application_group_memberships" {
-   app_id = okta_app_oauth.test_app.id
-   group {
-     id = okta_group.test_group_1.id
-     priority = 0
-   }
- }
+# resource "okta_app_group_assignments" "spa_application_group_memberships" {
+#   app_id = okta_app_oauth.test_app.id
+#   group {
+#     id = okta_group.test_group_1.id
+#     priority = 0
+#   }
+# }
  
  
  
