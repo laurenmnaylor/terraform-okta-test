@@ -10,13 +10,13 @@
 #       }
 # }
 
-resource "okta_auth_server" "authorization_server" {
-  audiences = ["my_aud"]
-  name      = "My Authorization Server"
-}
+#resource "okta_auth_server" "authorization_server" {
+#  audiences = ["my_aud"]
+#  name      = "My Authorization Server"
+#}
 
 resource "okta_auth_server_scope" "scope" {
-  auth_server_id = okta_auth_server.authorization_server.id
+  auth_server_id = "ausgtf8p4e5fqiWYU5d7"
   name = "My Scope"
   description = "My Scope Description"
 }
