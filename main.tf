@@ -189,11 +189,11 @@ resource "okta_app_oauth" "test_app" {
 #   }
 # }
 
-resource "okta_trusted_origin" "trusted_origin" {
-  name = "Trusted Origin"
-  origin = "https://test.com"
-  scopes = ["CORS"]
-}
+#resource "okta_trusted_origin" "trusted_origin" {
+#  name = "Trusted Origin"
+#  origin = "https://test.com"
+#  scopes = ["CORS"]
+#}
  
  
  
