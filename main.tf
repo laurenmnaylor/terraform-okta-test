@@ -15,10 +15,17 @@
 #  name      = "My Authorization Server"
 #}
 
-resource "okta_auth_server_scope" "scope" {
+#resource "okta_auth_server_scope" "scope" {
+#  auth_server_id = "ausgtf8p4e5fqiWYU5d7"
+#  name = "MyScope"
+#  description = "My Scope Description"
+#}
+
+resource "okta_auth_server_claim" "claim" {
   auth_server_id = "ausgtf8p4e5fqiWYU5d7"
-  name = "MyScope"
-  description = "My Scope Description"
+  name = "MyClaim"
+  value = "user.email"
+  claim_type = "IDENTITY"
 }
 
 #resource "okta_app_oauth" "test_app" {
