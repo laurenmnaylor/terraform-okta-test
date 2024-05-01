@@ -10,50 +10,50 @@
 #       }
 # }
 
-resource "okta_auth_server" "authorization_server" {
-  audiences = ["my_aud"]
-  name      = "My Authorization Server"
-}
-
-resource "okta_auth_server_scope" "scope" {
-  auth_server_id = okta_auth_server.authorization_server.id
-  name = "MyScope"
-  description = "My Scope Description"
-}
-
-resource "okta_auth_server_claim" "claim" {
-  auth_server_id = okta_auth_server.authorization_server.id
-  name = "MyClaim"
-  value = "user.email"
-  claim_type = "IDENTITY"
-}
-
-resource "okta_auth_server_policy" "auth_server_policy" {
-  auth_server_id = okta_auth_server.authorization_server.id
-  name = "My Policy"
-  priority = 1
-  description = "My Policy Description"
-  client_whitelist = ["ALL_CLIENTS"]
-}
-
-resource "okta_auth_server_policy_rule" "auth_server_policy_rule" {
-  auth_server_id = okta_auth_server.authorization_server.id
-  name           = "My Policy Rule"
-  policy_id      = okta_auth_server_policy.auth_server_policy.id
-  priority       = 1
-  grant_type_whitelist = ["client_credentials"]
-}
-
-#resource "okta_app_oauth" "test_app" {
-#  label                      = "Terraform Test SPA"
-#  type                       = "browser"
-#  grant_types                = ["authorization_code"]
-#  redirect_uris              = ["https://example.com/login/authorization_code/callback"]
-#  consent_method             = "REQUIRED"
-#  token_endpoint_auth_method = "none"
-#  response_types             = ["code"]
-#  post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
+#resource "okta_auth_server" "authorization_server" {
+#  audiences = ["my_aud"]
+#  name      = "My Authorization Server"
 #}
+#
+#resource "okta_auth_server_scope" "scope" {
+#  auth_server_id = okta_auth_server.authorization_server.id
+#  name = "MyScope"
+#  description = "My Scope Description"
+#}
+#
+#resource "okta_auth_server_claim" "claim" {
+#  auth_server_id = okta_auth_server.authorization_server.id
+#  name = "MyClaim"
+#  value = "user.email"
+#  claim_type = "IDENTITY"
+#}
+#
+#resource "okta_auth_server_policy" "auth_server_policy" {
+#  auth_server_id = okta_auth_server.authorization_server.id
+#  name = "My Policy"
+#  priority = 1
+#  description = "My Policy Description"
+#  client_whitelist = ["ALL_CLIENTS"]
+#}
+#
+#resource "okta_auth_server_policy_rule" "auth_server_policy_rule" {
+#  auth_server_id = okta_auth_server.authorization_server.id
+#  name           = "My Policy Rule"
+#  policy_id      = okta_auth_server_policy.auth_server_policy.id
+#  priority       = 1
+#  grant_type_whitelist = ["client_credentials"]
+#}
+
+resource "okta_app_oauth" "test_app" {
+  label                      = "Terraform Test SPA"
+  type                       = "browser"
+  grant_types                = ["authorization_code"]
+  redirect_uris              = ["https://example.com/login/authorization_code/callback"]
+  consent_method             = "REQUIRED"
+  token_endpoint_auth_method = "none"
+  response_types             = ["code"]
+  post_logout_redirect_uris  = ["https://example.com", "https://example2.com"]
+}
 # 
 # resource "okta_app_user_schema_property" "custom_app_profile" {
 #   app_id = okta_app_oauth.test_app.id
