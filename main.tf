@@ -112,18 +112,18 @@
    })
  }
 
-resource "okta_group_rule" "group_rule" {
-  name = "GroupRule"
-  group_assignments = [okta_group.test_group_1.id]
-  expression_value = "String.startsWith(user.firstName,\"lauren\")"
-}
+#resource "okta_group_rule" "group_rule" {
+#  name = "GroupRule"
+#  group_assignments = [okta_group.test_group_1.id]
+#  expression_value = "String.startsWith(user.firstName,\"lauren\")"
+#}
 # 
-# resource "okta_user" "authserver_admin" {
-#   first_name = "AuthServer"
-#   last_name = "Admin"
-#   login = "authServerAdmin@paraport.com"
-#   email = "authServerAdmin@paraport.com"
-# }
+ resource "okta_user" "authserver_admin" {
+   first_name = "AuthServer"
+   last_name = "Admin"
+   login = "authServerAdmin@paraport.com"
+   email = "authServerAdmin@paraport.com"
+ }
 # 
 # data "okta_user" "nicholas_giuliani" {
 #   search {
@@ -142,14 +142,13 @@ resource "okta_group_rule" "group_rule" {
 #   }
 # }
 # 
-# resource "okta_group_memberships" "test_group_1_membership" {
-#   group_id = okta_group.test_group_1.id
-#   users = [
-#    okta_user.authserver_admin.id,
-#    data.okta_user.nicholas_giuliani.id 
-#   ]
-#   track_all_users = true
-# }
+ resource "okta_group_memberships" "test_group_1_membership" {
+   group_id = okta_group.test_group_1.id
+   users = [
+    okta_user.authserver_admin.id
+   ]
+   track_all_users = true
+ }
 # 
 # resource "okta_group" "test_group_6" {
 #   name = "Test Group 6"
