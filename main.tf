@@ -118,7 +118,7 @@
 #  expression_value = "String.startsWith(user.firstName,\"lauren\")"
 #}
 
-resource "okta_user_base_schema_property" "custom_user_prop" {
+resource "okta_user_schema_property" "custom_user_prop" {
   index = "userProperty"
   title = "User Property"
   type = "string"
