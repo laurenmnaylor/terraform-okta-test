@@ -124,7 +124,7 @@
    login = "authServerAdmin@paraport.com"
    email = "authServerAdmin@paraport.com"
    status = "ACTIVE"
-   password = "password"
+   password = "test_pw_10!"
  }
 # 
 # data "okta_user" "nicholas_giuliani" {
