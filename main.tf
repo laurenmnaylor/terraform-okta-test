@@ -62,20 +62,22 @@ resource "okta_app_oauth" "test_app" {
 #   type = "string"
 # }
 
- resource "okta_profile_mapping" "mapping" {
-   source_id = okta_app_oauth.test_app.id
-   target_id = okta_app_oauth.test_app.id
+data "okta_user_profile_mapping_source" "user" {}
 
-   mappings {
-     id = "nickname"
-     expression = "user.firstName"
-   }
+resource "okta_profile_mapping" "mapping" { 
+  source_id = data.okta_user_profile_mapping_source.user.id
+  target_id = okta_app_oauth.test_app.id
 
-   mappings {
-     id = "userName"
-     expression = "user.employeeNumber"
-   }
- }
+  mappings {
+    id = "nickname"
+    expression = "user.firstName"
+  }
+
+  mappings {
+    id = "userName"
+    expression = "user.employeeNumber"
+  }
+}
 
 # resource "okta_app_oauth" "m2m_application_2" {
 #   label = "M2M Application 3"
