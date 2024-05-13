@@ -13,25 +13,25 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-         terraform_version: 1.6.0
-      - name: Terraform Init
-        run: terraform init
-      - name: Terraform Plan
-        continue-on-error: true
-        env:
-          TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
-          TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
-          TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
-          TF_VAR_env: 'dev'
-        run: |
-          terraform plan -input=false -detailed-exitcode
-          echo "plan_output=$?" >> $GITHUB_ENV
+#      - name: Setup Terraform
+#        uses: hashicorp/setup-terraform@v1
+#        with:
+#         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+#         terraform_version: 1.6.0
+#      - name: Terraform Init
+#        run: terraform init
+#      - name: Terraform Plan
+#        continue-on-error: true
+#        env:
+#          TF_VAR_org_name: ${{ vars.TF_VAR_org_name }}
+#          TF_VAR_base_url: ${{ vars.TF_VAR_base_url }}
+#          TF_VAR_api_token: ${{ secrets.TF_VAR_api_token }}
+#          TF_VAR_env: 'dev'
+#        run: |
+#          terraform plan -input=false -detailed-exitcode
+#          echo "plan_output=$?" >> $GITHUB_ENV
       - name: Check Approvals
-        if: ${{ env.plan_output }} == 2
+#        if: ${{ env.plan_output }} == 2
         env:
           GH_TOKEN: ${{ secrets.ORG_TOKEN }}
         run: |
