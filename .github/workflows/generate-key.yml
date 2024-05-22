@@ -23,7 +23,8 @@ jobs:
           npm i njwt
           npm ci
           token=$(node generate-jwt.js "${{ secrets.TF_VAR_private_key }}" "0oah96zm3mSlrHKV05d7" "dev-86564089.okta.com")
-          echo $token
+          echo $token >> token.txt
+          cat token.txt
           echo "jwt=$token" >> $GITHUB_OUTPUT
           
   deploy:
