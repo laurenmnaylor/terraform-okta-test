@@ -26,4 +26,4 @@ const jwt = njwt.create(claims, privateKey, alg)
     .setSubject(clientId)
     .compact();
 
-var token = jwt.compact();
+console.log(jwt);
