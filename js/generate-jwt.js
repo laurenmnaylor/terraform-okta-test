@@ -6,7 +6,7 @@ console.log(process.argv[2].length);
 console.log(process.argv[3].length);
 console.log(process.argv[4].length);
 
-const privateKey = process.argv[2].replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "");
+const privateKey = process.argv[2].replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "").split(String.raw`\n`).join('\n');
 console.log(privateKey.length);
 const clientId = process.argv[3];
 
