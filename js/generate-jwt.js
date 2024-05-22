@@ -23,7 +23,6 @@ const jwt = njwt.create(claims, privateKey, alg)
     .setIssuedAt(now)
     .setExpiration(plus5Minutes)
     .setIssuer(clientId)
-    .setSubject(clientId)
-    .compact();
+    .setSubject(clientId);
 
 console.log(jwt);
