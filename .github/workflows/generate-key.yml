@@ -1,0 +1,25 @@
+name: 'Run Script'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-jwt:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    environment: 'generate jwt'
+    steps:
+      # Make sure we have some code to diff.
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get changed files
+        id: generate-jwt
+        run: |
+          cd js
+          npm init -y
+          npm install
+          npm i njwt
+          npm ci
+          node generate-jwt.js "${{ secrets.TF_VAR_private_key }}" "0oah96zm3mSlrHKV05d7" "dev-86564089.okta.com"
+
+          
