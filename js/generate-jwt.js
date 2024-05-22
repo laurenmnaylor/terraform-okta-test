@@ -1,13 +1,6 @@
 const njwt = require('njwt');
 
-console.log(process.argv[0].length);
-console.log(process.argv[1].length);
-console.log(process.argv[2].length);
-console.log(process.argv[3].length);
-console.log(process.argv[4].length);
-
 const privateKey = process.argv[2].split(String.raw`\n`).join('\n');
-console.log(privateKey.length);
 const clientId = process.argv[3];
 
 const now = Math.floor( new Date().getTime() / 1000 ); // seconds since epoch
@@ -23,6 +16,7 @@ const jwt = njwt.create(claims, privateKey, alg)
     .setIssuedAt(now)
     .setExpiration(plus5Minutes)
     .setIssuer(clientId)
-    .setSubject(clientId);
+    .setSubject(clientId)
+    .compact();
 
 console.log(jwt);

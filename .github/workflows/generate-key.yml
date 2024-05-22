@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     environment: 'generate jwt'
+    outputs:
+      jwt: ${{ steps.generate-jwt.outputs.jwt }}
     steps:
       # Make sure we have some code to diff.
       - name: Checkout repository
@@ -20,6 +22,18 @@ jobs:
           npm install
           npm i njwt
           npm ci
-          node generate-jwt.js "${{ secrets.TF_VAR_private_key }}" "0oah96zm3mSlrHKV05d7" "dev-86564089.okta.com"
-
+          token=$(node generate-jwt.js "${{ secrets.TF_VAR_private_key }}" "0oah96zm3mSlrHKV05d7" "dev-86564089.okta.com")
+          echo "jwt=${token}" >> $GITHUB_OUTPUT
           
+  deploy:
+    name: 'Get Okta Resource ID'
+    environment: 'generate jwt'
+    runs-on: ubuntu-latest
+    needs: [ generate-jwt ]
+    steps:
+      - name: Get Resource ID
+        run: |
+          echo ${{ needs.generate-jwt.outputs.jwt }}
+          token=${{ needs.generate-jwt.outputs.jwt }}
+          echo "length:"
+          echo ${#token}
