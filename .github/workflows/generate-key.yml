@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     environment: 'generate jwt'
+    env:
+      GH_TOKEN: ${{ secrets.ORG_TOKEN }}
     outputs:
       jwt: ${{ steps.generate-jwt.outputs.jwt }}
     steps:
