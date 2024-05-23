@@ -38,7 +38,6 @@ jobs:
           
           echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $token\" \"${url}\"" > curl.sh
           cat curl.sh
-          result=$(./curl.sh)
-          echo $result
+         ./curl.sh
 
           
