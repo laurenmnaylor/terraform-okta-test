@@ -36,9 +36,9 @@ jobs:
       - name: Get Resource ID
         run: |
           jwt=${{ needs.generate-jwt.outputs.jwt }}
-          jwt=$(echo $jwt | sed 's/=.*//g')=$(echo ${jwt#*=} | base64 -di | base64 -di)
-        
-          echo $jwt
+          token=$(echo $jwt | sed 's/=.*//g')=$(echo ${jwt#*=} | base64 -di | base64 -di)
+          echo "JWT"
+          echo $token
           declare okta_url="https://dev-86564089.okta.com/api/v1"
           declare result=""
           declare url=""
@@ -51,7 +51,7 @@ jobs:
           cat > curl2.sh
           chmod +x curl2.sh
           
-          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $jwt\" \"${url}\"" > curl2.sh
+          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $token\" \"${url}\"" > curl2.sh
           cat curl2.sh
           ./curl2.sh >> results.txt
           cat results.txt
