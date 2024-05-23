@@ -16,6 +16,8 @@ jobs:
         id: generate-jwt
         run: |
           cd js
+          npm init -y
+          ls
           
           declare okta_url="https://dev-86564089.okta.com/api/v1"
           declare result=""
