@@ -18,7 +18,7 @@ jobs:
           cd js
           npm init -y
 
-          cd -
+          rm package.json
           
           declare okta_url="https://dev-86564089.okta.com/api/v1"
           declare result=""
