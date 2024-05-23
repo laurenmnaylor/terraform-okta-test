@@ -36,10 +36,16 @@ jobs:
       - name: Get Resource ID
         run: |
           jwt=${{ needs.generate-jwt.outputs.jwt }}
-          jtoken=$(echo $jwt | sed 's/=.*//g')
-          token=$(echo ${jtoken#*=} | base64 -di | base64 -di)
+          jwt=$(echo $jwt | sed 's/=.*//g')
+          jwt=$(echo ${jwt#*=} | base64 -di | base64 -di)
           echo "JWT"
           echo $token
+          
+          cat > curl_access_token.sh
+          chmod +x curl_access_token.sh
+          echo "curl --location --request POST 'https://dev-86564089.okta.com/oauth2/v1/token' --header 'Accept: application/json' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=client_credentials' --data-urlencode 'scope=okta.apps.read' --data-urlencode 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer' --data-urlencode 'client_assertion=$jwt'" > curl_access_token.sh
+          accessToken=$(./curl_access_token.sh | jq -r '.access_token')
+          
           declare okta_url="https://dev-86564089.okta.com/api/v1"
           declare result=""
           declare url=""
@@ -52,7 +58,7 @@ jobs:
           cat > curl2.sh
           chmod +x curl2.sh
           
-          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $token\" \"${url}\"" > curl2.sh
+          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $accessToken\" \"${url}\"" > curl2.sh
           cat curl2.sh
           ./curl2.sh >> results.txt
           cat results.txt
