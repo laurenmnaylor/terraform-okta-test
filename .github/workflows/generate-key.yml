@@ -28,7 +28,7 @@ jobs:
           declare jq_filter=""
           
           url="$okta_url/apps"
-          jq_filter="jq 'map(select(.label==\"${{ github.event.inputs.name }}\")) | map({name: .label, id: .id})"
+          jq_filter="jq"
           
           jq_filter+=" | if . == [] then empty else . end'"
           cat > curl.sh
