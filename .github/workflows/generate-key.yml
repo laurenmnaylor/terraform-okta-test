@@ -21,8 +21,10 @@ jobs:
           npm i njwt
           npm ci
           token=$(node generate-jwt.js "${{ secrets.TF_VAR_private_key }}" "0oah96zm3mSlrHKV05d7" "dev-86564089.okta.com")
-          
-          echo ${#token}
+          cat > curl.sh
+          chmod +x curl.sh
+          echo "curl --location --request POST 'https://dev-86564089.okta.com/oauth2/v1/token' --header 'Accept: application/json' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=client_credentials' --data-urlencode 'scope=okta.apps.read' --data-urlencode 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer' --data-urlencode 'client_assertion=$token'" > curl.sh
+          accessToken=$(./curl.sh | jq -r '.access_token')
           
           declare okta_url="https://dev-86564089.okta.com/api/v1"
           declare result=""
@@ -32,12 +34,12 @@ jobs:
           url="$okta_url/apps"
           jq_filter="jq"
           
-
-          cat > curl.sh
-          chmod +x curl.sh
           
-          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $token\" \"${url}\"" > curl.sh
-          cat curl.sh
-          ./curl.sh
+          cat > curl2.sh
+          chmod +x curl2.sh
+          
+          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $accessToken\" \"${url}\"" > curl2.sh
+          cat curl2.sh
+          ./curl2.sh
 
           
