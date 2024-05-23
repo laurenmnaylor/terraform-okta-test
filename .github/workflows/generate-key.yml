@@ -17,9 +17,7 @@ jobs:
         run: |
           cd js
           npm init -y
-          npm install
-          npm i njwt
-          npm ci
+
           
           declare okta_url="https://dev-86564089.okta.com/api/v1"
           declare result=""
