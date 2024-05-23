@@ -16,7 +16,7 @@ const claims = {
 const jwt = njwt.create(claims, privateKey, alg)
     .setIssuedAt(now)
     .setExpiration(plus5Minutes)
-    .setIssuer(clientId)
+    .setIssuer("https://" + url)
     .setSubject(clientId)
     .compact();
 
