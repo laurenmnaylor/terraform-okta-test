@@ -22,7 +22,9 @@ jobs:
           npm ci
           token=$(node generate-jwt.js "${{ secrets.TF_VAR_private_key }}" "0oah96zm3mSlrHKV05d7" "dev-86564089.okta.com")
           
-          declare okta_url="https://${{ vars.TF_VAR_org_name }}.${{ vars.TF_VAR_base_url }}/api/v1"
+      
+          
+          declare okta_url="https://dev-86564089.okta.com/api/v1"
           declare result=""
           declare url=""
           declare jq_filter=""
