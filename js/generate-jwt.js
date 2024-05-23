@@ -10,6 +10,7 @@ const alg = 'RS256'; // one of RSA or ECDSA algorithms: RS256, RS384, RS512, ES2
 const url = process.argv[4];
 const claims = {
     aud: "https://" + url + "/oauth2/default/v1/token", // audience
+    scope: "okta.apps.read"
 };
 
 const jwt = njwt.create(claims, privateKey, alg)
