@@ -8,8 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     environment: 'generate jwt'
-    outputs:
-      jwt: ${{ steps.generate-jwt.outputs.jwt }}
     steps:
       # Make sure we have some code to diff.
       - name: Checkout repository
@@ -23,19 +21,21 @@ jobs:
           npm i njwt
           npm ci
           token=$(node generate-jwt.js "${{ secrets.TF_VAR_private_key }}" "0oah96zm3mSlrHKV05d7" "dev-86564089.okta.com")
-          echo $token >> token.txt
-          cat token.txt
-          echo "jwt=$token" >> $GITHUB_OUTPUT
           
-  deploy:
-    name: 'Get Okta Resource ID'
-    environment: 'generate jwt'
-    runs-on: ubuntu-latest
-    needs: [ generate-jwt ]
-    steps:
-      - name: Get Resource ID
-        run: |
-          echo ${{ needs.generate-jwt.outputs.jwt }}
-          token=${{ needs.generate-jwt.outputs.jwt }}
-          echo "length:"
-          echo ${#token}
+          declare okta_url="https://${{ vars.TF_VAR_org_name }}.${{ vars.TF_VAR_base_url }}/api/v1"
+          declare result=""
+          declare url=""
+          declare jq_filter=""
+          
+          url="$okta_url/apps"
+          jq_filter="jq 'map(select(.label==\"${{ github.event.inputs.name }}\")) | map({name: .label, id: .id})"
+          
+          jq_filter+=" | if . == [] then empty else . end'"
+          cat > curl.sh
+          chmod +x curl.sh
+          
+          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: SSWS $token\" \"${url}\" | $jq_filter" > curl.sh
+          result=$(./curl.sh)
+          echo $result
+
+          
