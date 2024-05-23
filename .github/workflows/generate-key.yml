@@ -36,7 +36,7 @@ jobs:
           cat > curl.sh
           chmod +x curl.sh
           
-          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $token\" \"${url}\" | $jq_filter" > curl.sh
+          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $token\" \"${url}\"" > curl.sh
           cat curl.sh
           result=$(./curl.sh)
           echo $result
