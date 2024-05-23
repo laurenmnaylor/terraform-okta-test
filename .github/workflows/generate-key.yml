@@ -30,7 +30,7 @@ jobs:
           url="$okta_url/apps"
           jq_filter="jq"
           
-          jq_filter+=" | if . == [] then empty else . end'"
+
           cat > curl.sh
           chmod +x curl.sh
           
