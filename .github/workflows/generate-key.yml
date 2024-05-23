@@ -24,7 +24,7 @@ jobs:
           cat > curl.sh
           chmod +x curl.sh
           echo "curl --location --request POST 'https://dev-86564089.okta.com/oauth2/v1/token' --header 'Accept: application/json' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=client_credentials' --data-urlencode 'scope=okta.apps.read' --data-urlencode 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer' --data-urlencode 'client_assertion=$token'" > curl.sh
-          ./curl.sh
+          accessToken=$(./curl.sh | jq -r '.access_token')
           
           declare okta_url="https://dev-86564089.okta.com/api/v1"
           declare result=""
