@@ -58,7 +58,7 @@ jobs:
           cat > curl2.sh
           chmod +x curl2.sh
           
-          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $accessToken\" \"${url}\" | jq 'map({name: .label, id: .id}'" > curl2.sh
+          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $accessToken\" \"${url}\" | jq 'map({name: .label, id: .id})'" > curl2.sh
           cat curl2.sh
           ./curl2.sh >> results.txt
           cat results.txt
