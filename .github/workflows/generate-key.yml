@@ -15,17 +15,7 @@ jobs:
       - name: Get changed files
         id: generate-jwt
         run: |
-          cd js
-          npm init -y
-          npm install
-          npm i njwt
-          npm ci
-          token=$(node generate-jwt.js "${{ secrets.TF_VAR_private_key }}" "0oah96zm3mSlrHKV05d7" "dev-86564089.okta.com")
-          cat > curl.sh
-          chmod +x curl.sh
-          echo "curl --location --request POST 'https://dev-86564089.okta.com/oauth2/v1/token' --header 'Accept: application/json' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=client_credentials' --data-urlencode 'scope=okta.apps.read' --data-urlencode 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer' --data-urlencode 'client_assertion=$token'" > curl.sh
-          accessToken=$(./curl.sh | jq -r '.access_token')
-          
+         
           declare okta_url="https://dev-86564089.okta.com/api/v1"
           declare result=""
           declare url=""
