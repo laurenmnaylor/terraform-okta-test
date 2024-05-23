@@ -20,7 +20,7 @@ jobs:
           npm install
           npm i njwt
           npm ci
-          npm uninstall
+          npm uninstall njwt
           
           declare okta_url="https://dev-86564089.okta.com/api/v1"
           declare result=""
