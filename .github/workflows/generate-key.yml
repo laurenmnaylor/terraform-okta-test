@@ -16,6 +16,7 @@ jobs:
         id: generate-jwt
         run: |
           cd js
+          npm init -y
 
 
           
