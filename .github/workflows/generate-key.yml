@@ -28,63 +28,15 @@ jobs:
           echo $token >> token.txt
           cat token.txt
           echo "jwt=$(echo $token | base64 -w0 | base64 -w0)" >> $GITHUB_OUTPUT
+  
           
           
           cat > curl_access_token.sh
           chmod +x curl_access_token.sh
           echo "curl --location --request POST 'https://dev-86564089.okta.com/oauth2/v1/token' --header 'Accept: application/json' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=client_credentials' --data-urlencode 'scope=okta.apps.read' --data-urlencode 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer' --data-urlencode 'client_assertion=$token'" > curl_access_token.sh
           accessToken=$(./curl_access_token.sh | jq -r '.access_token')
+          at=$(echo accessToken | base64 -w0 | base64 -w0)
+          echo "ACCESS TOKEN"
+          echo $at
           
-          declare okta_url="https://dev-86564089.okta.com/api/v1"
-          declare result=""
-          declare url=""
-          declare jq_filter=""
-          
-          url="$okta_url/apps"
-          jq_filter="jq"
-          
-          
-          cat > curl2.sh
-          chmod +x curl2.sh
-          
-          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $accessToken\" \"${url}\"" > curl2.sh
-          cat curl2.sh
-          ./curl2.sh >> results.txt
-          cat results.txt
-          
-  deploy:
-    name: 'Get Okta Resource ID'
-    environment: 'generate jwt'
-    runs-on: ubuntu-latest
-    needs: [ generate-jwt ]
-    steps:
-      - name: Get Resource ID
-        run: |
-          
-          jwt=${{ needs.generate-jwt.outputs.jwt }}
-          jwt=$(echo $jwt | sed 's/=.*//g')
-          jwt=$(echo ${jwt#*=} | base64 -di | base64 -di)
-          echo "JWT"
-          echo $token
-          
-          cat > curl_access_token.sh
-          chmod +x curl_access_token.sh
-          echo "curl --location --request POST 'https://dev-86564089.okta.com/oauth2/v1/token' --header 'Accept: application/json' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=client_credentials' --data-urlencode 'scope=okta.apps.read' --data-urlencode 'client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer' --data-urlencode 'client_assertion=$jwt'" > curl_access_token.sh
-          accessToken=$(./curl_access_token.sh | jq -r '.access_token')
-          
-          declare okta_url="https://dev-86564089.okta.com/api/v1"
-          declare result=""
-          declare url=""
-          declare jq_filter=""
-          
-          url="$okta_url/apps"
-          jq_filter="jq"
-          
-          
-          cat > curl2.sh
-          chmod +x curl2.sh
-          
-          echo "curl -s -D headers.txt -X GET -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"Authorization: Bearer $accessToken\" \"${url}\" | jq 'map({name: .label, id: .id})'" > curl2.sh
-          cat curl2.sh
-          ./curl2.sh >> results.txt
-          cat results.txt
+         
