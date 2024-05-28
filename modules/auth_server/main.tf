@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    okta = {
+      source = "okta/okta"
+      version = ">= 4.8.1"
+    }
+  }
+}
+
 resource "okta_auth_server" "authorization_server" {
  audiences = ["my_aud"]
  name      = "My Authorization Server"
