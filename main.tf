@@ -11,7 +11,7 @@
 # }
 
 module "my_service_application" {
-  source = "../modules/client_applications"
+  source = "./modules/client_applications"
 }
 
 #resource "okta_auth_server" "authorization_server" {
