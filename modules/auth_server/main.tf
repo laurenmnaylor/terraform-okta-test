@@ -17,5 +17,5 @@ resource "okta_auth_server_policy" "auth_server_policy" {
  name = "My Policy"
  priority = 1
  description = "My Policy Description"
- client_whitelist = [var.client_id]
+ client_whitelist = [var.client_app_id]
 }
