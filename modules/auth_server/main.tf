@@ -32,10 +32,10 @@ data "okta_auth_server" "as" {
 #  client_whitelist = ["ALL_CLIENTS"]
 # }
 
-resource "okta_auth_server_policy" "auth_server_policy_3" {
+resource "okta_auth_server_policy" "auth_server_policy_4" {
  auth_server_id = data.okta_auth_server.as.id
- name = "My Policy 3"
- priority = 1
+ name = "My Policy 4"
+ priority = 0
  description = "My Policy Description"
  client_whitelist = ["ALL_CLIENTS"]
 }
