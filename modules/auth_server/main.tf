@@ -33,7 +33,7 @@ data "okta_auth_server" "as" {
 # }
 
 resource "okta_auth_server_policy" "auth_server_policy_3" {
- auth_server_id = okta_auth_server.authorization_server.id
+ auth_server_id = data.okta_auth_server.as.id
  name = "My Policy 3"
  priority = 1
  description = "My Policy Description"
