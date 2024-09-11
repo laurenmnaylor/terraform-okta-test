@@ -32,18 +32,23 @@ data "okta_auth_server" "as" {
 #  client_whitelist = ["ALL_CLIENTS"]
 # }
 
-resource "okta_auth_server_policy" "auth_server_policy_8" {
+data "okta_auth_server_policy" "as_policy" {
  auth_server_id = data.okta_auth_server.as.id
  name = "My Policy 8"
- priority = 1
- description = "My Policy Description"
- client_whitelist = ["ALL_CLIENTS"]
 }
 
-resource "okta_auth_server_policy" "auth_server_policy_9" {
+resource "okta_auth_server_policy_rule" "auth_server_policy_rule" {
  auth_server_id = data.okta_auth_server.as.id
- name = "My Policy 9"
+ policy_id = data.okta_auth_server_policy.as_policy.id
+ name = "My Rule 1"
  priority = 0
- description = "My Policy Description"
- client_whitelist = ["ALL_CLIENTS"]
+ grant_type_whitelist = ["implicit"]
+}
+
+resource "okta_auth_server_policy_rule" "auth_server_policy_rule_2" {
+ auth_server_id = data.okta_auth_server.as.id
+ policy_id = data.okta_auth_server_policy.as_policy.id
+ name = "My Rule 2"
+ priority = 0
+ grant_type_whitelist = ["implicit"]
 }
