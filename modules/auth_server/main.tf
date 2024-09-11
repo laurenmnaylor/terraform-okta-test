@@ -15,7 +15,7 @@ resource "okta_auth_server" "authorization_server" {
 resource "okta_auth_server_policy" "auth_server_policy" {
  auth_server_id = okta_auth_server.authorization_server.id
  name = "My Policy"
- priority = 1
+ priority = 100
  description = "My Policy Description"
  client_whitelist = [var.client_app_id]
 }
@@ -23,7 +23,7 @@ resource "okta_auth_server_policy" "auth_server_policy" {
 resource "okta_auth_server_policy" "auth_server_policy_2" {
  auth_server_id = okta_auth_server.authorization_server.id
  name = "My Policy 2"
- priority = 2
+ priority = 100
  description = "My Policy Description"
  client_whitelist = ["ALL_CLIENTS"]
 }
