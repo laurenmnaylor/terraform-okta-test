@@ -42,7 +42,7 @@ resource "okta_auth_server_policy_rule" "auth_server_policy_rule" {
  policy_id = data.okta_auth_server_policy.as_policy.id
  name = "My Rule 1"
  priority = 0
- grant_type_whitelist = ["implicit"]
+ grant_type_whitelist = ["client_credentials"]
 }
 
 resource "okta_auth_server_policy_rule" "auth_server_policy_rule_2" {
@@ -50,5 +50,5 @@ resource "okta_auth_server_policy_rule" "auth_server_policy_rule_2" {
  policy_id = data.okta_auth_server_policy.as_policy.id
  name = "My Rule 2"
  priority = 0
- grant_type_whitelist = ["implicit"]
+ grant_type_whitelist = ["client_credentials"]
 }
