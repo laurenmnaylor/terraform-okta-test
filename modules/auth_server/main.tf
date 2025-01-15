@@ -48,7 +48,7 @@ resource "okta_auth_server_policy_rule" "auth_server_policy_rule_5" {
 resource "okta_auth_server_policy_rule" "auth_server_policy_rule_6" {
  auth_server_id = data.okta_auth_server.as.id
  policy_id = data.okta_auth_server_policy.as_policy.id
- name = "My Rule 6"
+ name = "My Rule 7"
  priority = 2
  grant_type_whitelist = ["client_credentials"]
 }
